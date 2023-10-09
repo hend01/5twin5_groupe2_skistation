@@ -8,6 +8,12 @@
 		<version>2.6.9</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<distributionManagement>
+		<repository>
+			<id>nexus-site</id>
+			<url>http://192.168.1.31:8081/repository/maven-releases/</url>
+		</repository>
+	</distributionManagement>
 	<groupId>tn.esprit.spring</groupId>
 	<artifactId>gestion-station-ski</artifactId>
 	<version>1.0</version>
@@ -72,10 +78,5 @@
 		</plugins>
 	</build>
 
-<distributionManagement>
-	<repository>
-	<id>nexus-site</id>
-	<url>http://192.168.1.31:8081/repository/maven-releases/</url>
-</repository>
-</distributionManagement>
+
 </project>
