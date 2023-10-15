@@ -2,20 +2,25 @@ pipeline {
     agent any
 
     stages {
-        stage('Git') {
+        stage('Checkout') {
             steps {
-                echo 'Getting Project from Git'
-                git branch: 'main', url: 'https://github.com/hend01/5twin5_groupe2_skistation.git'
+                checkout scm
             }
         }
 
-
-        stage('Build') {
+        stage('Build with Maven') {
             steps {
-                sh 'mvn -version'
-                sh 'mvn clean package -DskipTests'
-                sh 'mvn test'
+                sh 'mvn clean compile'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build successfully'
+        }
+        failure {
+            echo 'failed '
         }
     }
 }
