@@ -16,6 +16,8 @@ import java.util.List;
 public class CourseServicesImpl implements ICourseServices {
     private static final Logger logger = LogManager.getLogger(CourseServicesImpl.class);
 
+    private static final String TYPE_LABEL = ", Type: ";
+
     private ICourseRepository courseRepository;
 
     @Override
@@ -23,7 +25,7 @@ public class CourseServicesImpl implements ICourseServices {
         logger.info("Appel de la méthode retrieveAllCourses()");
         List<Course> courses = courseRepository.findAll();
         for (Course course : courses) {
-            logger.debug("Course ID: " + course.getNumCourse() + ", Level: " + course.getLevel() + ", Type: " + course.getTypeCourse());
+            logger.debug("Course ID: " + course.getNumCourse() + ", Level: " + course.getLevel() + TYPE_LABEL + course.getTypeCourse());
         }
         return courses;
     }
@@ -31,16 +33,14 @@ public class CourseServicesImpl implements ICourseServices {
     @Override
     public Course addCourse(Course course) {
         logger.info("Ajout d'un nouveau cours");
-        // Vous pouvez ajouter un message de journalisation pour le cours ajouté
-        logger.debug("Course ID: " + course.getNumCourse() + ", Level: " + course.getLevel() + ", Type: " + course.getTypeCourse());
+        logger.debug("Course ID: " + course.getNumCourse() + ", Level: " + course.getLevel() + TYPE_LABEL + course.getTypeCourse());
         return courseRepository.save(course);
     }
 
     @Override
     public Course updateCourse(Course course) {
         logger.info("Mise à jour du cours avec l'ID : " + course.getNumCourse());
-        // Vous pouvez ajouter un message de journalisation pour le cours mis à jour
-        logger.debug("Course ID: " + course.getNumCourse() + ", Level: " + course.getLevel() + ", Type: " + course.getTypeCourse());
+        logger.debug("Course ID: " + course.getNumCourse() + ", Level: " + course.getLevel() + TYPE_LABEL + course.getTypeCourse());
         return courseRepository.save(course);
     }
 
@@ -48,9 +48,8 @@ public class CourseServicesImpl implements ICourseServices {
     public Course retrieveCourse(Long numCourse) {
         logger.info("Recherche du cours avec l'ID : " + numCourse);
         Course course = courseRepository.findById(numCourse).orElse(null);
-        // Vous pouvez ajouter un message de journalisation pour le cours récupéré
         if (course != null) {
-            logger.debug("Course ID: " + course.getNumCourse() + ", Level: " + course.getLevel() + ", Type: " + course.getTypeCourse());
+            logger.debug("Course ID: " + course.getNumCourse() + ", Level: " + course.getLevel() + TYPE_LABEL + course.getTypeCourse());
         } else {
             logger.warn("Aucun cours trouvé avec l'ID : " + numCourse);
         }
