@@ -9,7 +9,7 @@ services:
           - "3307:3306"
         restart: unless-stopped
     springmaven:
-        image:   springmaven
+        image: "ghannemhazem/devopsproject:68"
         build: .\dockerfile
         ports:
           - "8090:8089"
@@ -17,7 +17,6 @@ services:
           - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/ski?createDatabaseIfNotExist=true&userSSL=false&max_allowed_packet=15728640
           - SPRING_DATASOURCE_USERNAME=root
           - SPRING_DATASOURCE_PASSWORD=hazem123
-        image: userms
         restart: unless-stopped
         depends_on:
           - db-mysql
