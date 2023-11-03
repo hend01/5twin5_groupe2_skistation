@@ -1,0 +1,22 @@
+version: "3"
+services:
+    db-mysql:
+        image: "mysql:latest"
+        container_name: db-mysql
+        environment:
+          - MYSQL_ROOT_PASSWORD=1234
+        ports:
+          - "3307:3306"
+        restart: unless-stopped
+    springmaven:
+        image: "hend01/devopsimage"
+        build: .\dockerfile
+        ports:
+          - "8090:8090"
+        environment:
+          - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/skistation?createDatabaseIfNotExist=true&userSSL=false&max_allowed_packet=15728640
+          - SPRING_DATASOURCE_USERNAME=root
+          - SPRING_DATASOURCE_PASSWORD=1234
+        restart: unless-stopped
+        depends_on:
+          - db-mysql
