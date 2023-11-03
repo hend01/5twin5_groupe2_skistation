@@ -10,7 +10,7 @@ services:
         restart: unless-stopped
     springmaven:
         image: "hend01/devopsimage"
-        build: .\dockerfile
+        build: .\Dockerfile
         ports:
           - "8090:8090"
         environment:
