@@ -65,9 +65,9 @@ stage("Deploy to private registry") {
                     def dockerPassword = 'Skandeer1'
 
                     sh "docker build -t $dockerImageName:$DOCKER_IMAGE_TAG ."
-                    sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG ${nexusRegistryUrl}$dockerImageName:$DOCKER_IMAGE_TAG"
-                    sh "echo ${dockerPassword} | docker login --username ${dockerUsername} --password ${dockerPassword} ${nexusRegistryUrl}"
-                    sh "docker push ${nexusRegistryUrl}$dockerImageName:$DOCKER_IMAGE_TAG"
+                   // sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG ${nexusRegistryUrl}$dockerImageName:$DOCKER_IMAGE_TAG"
+                   // sh "echo ${dockerPassword} | docker login --username ${dockerUsername} --password ${dockerPassword} ${nexusRegistryUrl}"
+                   // sh "docker push ${nexusRegistryUrl}$dockerImageName:$DOCKER_IMAGE_TAG"
                 }
 
             }
