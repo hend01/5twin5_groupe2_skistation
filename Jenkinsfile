@@ -7,7 +7,7 @@ pipeline {
     tools {
           maven 'M2_HOME'
           jdk 'JAVA_HOME'
-          dockerComposed 'DOCKER_COMPOSE_HOME'
+          docker 'DOCKER_COMPOSE_HOME'
         }
     stages {
         stage('GIT') {
