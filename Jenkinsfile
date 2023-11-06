@@ -2,11 +2,10 @@ pipeline {
     environment {
         dockerImageName = "ski"
         DOCKER_IMAGE_TAG = "v${BUILD_NUMBER}" // Using Jenkins BUILD_NUMBER as the tag
+        PATH = "$PATH:/usr/local/bin"
+
     }
     agent any
-    environment {
-            PATH = "$PATH:/usr/local/bin"
-        }
     tools {
           maven 'M2_HOME'
           jdk 'JAVA_HOME'
