@@ -39,7 +39,7 @@ stage('SonarQube ') {
                     sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=skander'
                    }
              }
-/*
+
         stage("Build Docker image") {
             steps {
                 script {
@@ -47,22 +47,22 @@ stage('SonarQube ') {
                 }
             }
         }
-        /* stage('dockerhub') {
-                                          steps {
+         stage('dockerhub') {
+              steps {
 
-                                     sh "docker login -u 3alouch -p 191JMT3797"
-                                     sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG 3alouch/ski:$DOCKER_IMAGE_TAG"
-                                     sh "docker push  3alouch/ski:$DOCKER_IMAGE_TAG"
-                                          }
+         sh "docker login -u zouaouiskander -p Skandeer1"
+         sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG zouaouiskander/ski:$DOCKER_IMAGE_TAG"
+         sh "docker push  zouaouiskander/ski:$DOCKER_IMAGE_TAG"
+              }
                     }
 
 stage("Deploy to private registry") {
             steps {
                 script {
 
-                    def nexusRegistryUrl = '127.0.0.1:8081/repository/ski/'
-                    def dockerUsername = '3alouch'
-                    def dockerPassword = '191JMT3797'
+                   // def nexusRegistryUrl = '127.0.0.1:8081/repository/ski/'
+                    def dockerUsername = 'zouaouiskander'
+                    def dockerPassword = 'Skandeer1'
 
                     sh "docker build -t $dockerImageName:$DOCKER_IMAGE_TAG ."
                     sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG ${nexusRegistryUrl}$dockerImageName:$DOCKER_IMAGE_TAG"
@@ -72,7 +72,7 @@ stage("Deploy to private registry") {
 
             }
         }
-        */
+
         stage("Start app and db") {
             steps {
                 sh "docker-compose up -d"
