@@ -27,7 +27,7 @@ pipeline {
             }
 
         }
-        /*
+
   stage('JUnit / Mockito Tests') {
                             steps {
                                 // Run JUnit and Mockito tests using Maven
@@ -36,10 +36,10 @@ pipeline {
                         }
 stage('SonarQube ') {
              steps {
-                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=aziz'
+                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=skander'
                    }
              }
-
+/*
         stage("Build Docker image") {
             steps {
                 script {
