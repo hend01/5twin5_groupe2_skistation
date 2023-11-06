@@ -73,7 +73,7 @@ stage("Deploy to private registry") {
         */
         stage("Start app and db") {
             steps {
-                sh "/usr/local/bin/docker-compose up -d"
+                sh "docker-compose up -d"
             }
         }
 
