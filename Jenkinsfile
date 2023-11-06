@@ -7,7 +7,6 @@ pipeline {
     tools {
           maven 'M2_HOME'
           jdk 'JAVA_HOME'
-          docker 'DOCKER_COMPOSE_HOME'
         }
     stages {
         stage('GIT') {
@@ -20,6 +19,8 @@ pipeline {
          stage('Build') {
             steps {
                 script {
+                    sh" docker info"
+                    sh"docker compose version"
                     sh "mvn --version" // Use the specified Maven installation
                     sh "mvn clean package -DskipTests" // Build your Maven project
                 }
