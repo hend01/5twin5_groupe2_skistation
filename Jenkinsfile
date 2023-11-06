@@ -4,6 +4,10 @@ pipeline {
         DOCKER_IMAGE_TAG = "v${BUILD_NUMBER}" // Using Jenkins BUILD_NUMBER as the tag
     }
     agent any
+    tools {
+          maven 'M2_HOME'
+          jdk 'JAVA_HOME'
+        }
     stages {
         stage('GIT') {
             steps {
