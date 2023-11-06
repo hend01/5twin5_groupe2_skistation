@@ -94,6 +94,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>gestion-station-ski-1.0</finalName>
 	</build>
 
 </project>
