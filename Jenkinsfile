@@ -3,8 +3,11 @@ pipeline {
         dockerImageName = "ski"
        
     }
-
     agent any
+        tools {
+          maven 'M2_HOME'
+          jdk 'JAVA_HOME'
+        }
 
     stages {
         stage('GIT') {
