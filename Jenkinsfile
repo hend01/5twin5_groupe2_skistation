@@ -36,16 +36,13 @@ pipeline {
                         sh 'mvn test'
                     }
                         }
+
+
         stage('SonarQube Analysis') {
                     steps {
-                        dir(REPO_DIR) {
-                            withCredentials([usernamePassword(credentialsId: '652ef482-2744-468d-8b2c-90b50fdcf3f8', usernameVariable: 'SONAR_USER', passwordVariable: 'SONAR_PASSWORD')]) {
-                                sh "mvn clean verify sonar:sonar -Dsonar.login=\$SONAR_USER -Dsonar.password=\$SONAR_PASSWORD "
-                            }
-                        }
-                    }
-                }
-
+                        echo 'sonar test';
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=skander'
+        }
 
         stage("Build Docker image") {
             steps {
