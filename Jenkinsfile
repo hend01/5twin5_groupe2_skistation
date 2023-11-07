@@ -26,14 +26,14 @@ pipeline {
             }
         }
 
-        stage('JUnit / Mockito Tests') {
+        stage('MVN JUNIT') {
             steps {
                 // Run JUnit and Mockito tests using Maven
                 sh 'mvn test'
             }
         }
 
-        stage('SonarQube Analysis') {
+        stage('MVN SONARQUBE') {
             steps {
                 script {
                     echo 'sonar test';
@@ -42,6 +42,12 @@ pipeline {
                     }
                 }
             }
+        }
+
+        stage('MVN NEXUS') {
+                    steps {
+                        sh "mvn deploy -DskipTests=true "
+                    }
         }
 
         /*
@@ -76,11 +82,7 @@ pipeline {
             }
         }
 
-        stage('Nexus Deployment') {
-            steps {
-                sh "mvn deploy -DskipTests=true "
-            }
-        }
+
 
         stage("Start app and db") {
             steps {
