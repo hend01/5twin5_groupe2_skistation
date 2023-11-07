@@ -60,7 +60,7 @@ pipeline {
               }
         }
 
-        stage("Deploy to private registry") {
+       /* stage("Deploy to private registry") {
                     steps {
                         script {
 
@@ -75,7 +75,7 @@ pipeline {
                         }
 
                     }
-        }
+        }*/
 
         stage('Nexus Deployment') {
                     steps {
