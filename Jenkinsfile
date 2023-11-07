@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        stage('MVN JUNIT') {
+        stage('MVN JUNIT Mockito') {
             steps {
                 // Run JUnit and Mockito tests using Maven
                 sh 'mvn test'
