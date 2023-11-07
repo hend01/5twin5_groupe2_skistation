@@ -39,12 +39,18 @@ pipeline {
 
 
         stage('SonarQube Analysis') {
-                    steps {
-                        echo 'sonar test';
-                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=skander'
+            steps {
+                script {
+                    withSonarQubeEnv("My SonarQube Server") {
+                        withCredentials([usernamePassword(credentialsId: SONAR_CREDENTIALS, passwordVariable: 'SONAR_PASSWORD', usernameVariable: 'SONAR_LOGIN')]) {
+                            def scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                            sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONAR_LOGIN} -Dsonar.password=${SONAR_PASSWORD}"
+                        }
+                    }
                 }
+            }
         }
-
+/*
         stage("Build Docker image") {
             steps {
                 script {
@@ -52,7 +58,7 @@ pipeline {
                 }
             }
         }
-        /*
+
          stage('Docker Hub') {
               steps {
                      sh "docker login -u zouaouiskander -p Skandeer1"
@@ -84,13 +90,14 @@ pipeline {
                             sh "mvn deploy -DskipTests=true "
 
                     }
-        }*/
+        }
 
         stage("Start app and db") {
             steps {
                 sh "docker-compose up -d"
             }
         }
+        */
 
 
 
