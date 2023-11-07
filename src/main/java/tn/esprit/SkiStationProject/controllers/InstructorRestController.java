@@ -3,6 +3,8 @@ package tn.esprit.SkiStationProject.controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.SkiStationProject.entities.Instructor;
 import tn.esprit.SkiStationProject.services.IInstructorServices;
@@ -44,5 +46,18 @@ public class InstructorRestController {
     public Instructor getById(@PathVariable("id-instructor") Long numInstructor){
         return instructorServices.retrieveInstructor(numInstructor);
     }
+
+    @Operation(description = "Delete Instructor by Id")
+    @DeleteMapping("/{id-instructor}")
+    public ResponseEntity<String> deteteById(@PathVariable("id-instructor") Long numInstructor){
+        boolean success = instructorServices.deleteInstructor(numInstructor);
+
+        if (success) {
+            return ResponseEntity.ok("Instructor deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Instructor not found");
+        }
+    }
+
 
 }

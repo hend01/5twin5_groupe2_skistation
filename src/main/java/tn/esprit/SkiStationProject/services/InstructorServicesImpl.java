@@ -47,5 +47,14 @@ public class InstructorServicesImpl implements IInstructorServices{
         return instructorRepository.save(instructor);
     }
 
+    @Override
+    public boolean deleteInstructor(Long numInstructor) {
+        Instructor instructor= instructorRepository.findById(numInstructor).orElse(null);
+        if(instructor!=null){
+            instructorRepository.delete(instructor);
+            return true;
+        }
+        return false ;
+    }
 
 }

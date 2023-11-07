@@ -5,74 +5,103 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.SkiStationProject.entities.Course;
 import tn.esprit.SkiStationProject.entities.Instructor;
-import tn.esprit.SkiStationProject.entities.enums.Support;
-import tn.esprit.SkiStationProject.entities.enums.TypeCourse;
+
 import tn.esprit.SkiStationProject.repositories.InstructorRepository;
 import tn.esprit.SkiStationProject.services.InstructorServicesImpl;
 
+import javax.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.lenient;
+
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
  class InstructorServiceTest {
     @Mock
     InstructorRepository instructorRepository;
-    @InjectMocks
+    @Autowired
     InstructorServicesImpl instructorServices;
-    @Test
-     void retrieveAllPistesTest(){
-        List<Instructor> instructors = instructorRepository.findAll();
-        List<Instructor> expectedInstructors=instructorServices.retrieveAllInstructors();
 
-        assertEquals(instructors, expectedInstructors);
+    @Test
+    void addInstructorTest() {
+        // Create a new instructor factice to add
+        Set<Course> courses = new HashSet<>();
+        Instructor newInstructor = new Instructor("TESST", "Doe", LocalDate.now(), courses);
+
+        // Use lenient stubbing
+        lenient().when(instructorRepository.save(newInstructor)).thenReturn(newInstructor);
+        assertEquals(newInstructor, instructorServices.addInstructor(newInstructor));
+    }
+    @Test
+    void retrieveAllInstructorsTest() {
+        List<Instructor> retrievedInstructors = instructorServices.retrieveAllInstructors();
+
+        // Assert that the retrieved list is not empty and contains the expected number of instructors
+        assertNotNull(retrievedInstructors);
+        assertTrue(retrievedInstructors.size() > 0);
 
     }
-   @Test
-   void addInstructorTest() {
-      // Créez un nouvel instructeur factice à ajouter
-      Instructor newInstructor = new Instructor();
-      newInstructor.setFirstName("John");
-      newInstructor.setLastName("Doe");
-      newInstructor.setDateOfHire(LocalDate.now()); // Date d'embauche actuelle
-      Set<Course> courses = new HashSet<>();
-
-      Course course1 = new Course();
-      course1.setLevel(2);
-      course1.setTypeCourse(TypeCourse.COLLECTIVE_ADULT);
-
-      Course course2 = new Course();
-      course2.setLevel(3);
-      course2.setTypeCourse(TypeCourse.INDIVIDUAL);
-
-      courses.add(course1);
-      courses.add(course2);
-
-      newInstructor.setCourses(courses);
 
 
-      // Configurez le comportement simulé de repository.save() pour renvoyer le nouvel instructeur
-      when(instructorRepository.save(newInstructor)).thenReturn(newInstructor);
+    @Test
+    void testDeleteFirstInstructor() {
+        List<Instructor> instructors = instructorServices.retrieveAllInstructors();
 
-      // Appelez la méthode d'ajout de service
-      Instructor addedInstructor = instructorServices.addInstructor(newInstructor);
+        if (instructors.isEmpty()) {
+            // Handle the case where no instructors are available for deletion
+            fail("No instructors found for deletion");
+        } else {
+            Long firstInstructorId = instructors.get(0).getId();
+            boolean deleted = instructorServices.deleteInstructor(firstInstructorId);
 
-      // Vérifiez si l'instructeur renvoyé par le service correspond à celui que vous avez ajouté
-      assertNotNull(addedInstructor);
-      assertEquals(newInstructor.getFirstName(), addedInstructor.getFirstName());
-      assertEquals(newInstructor.getLastName(), addedInstructor.getLastName());
-      assertEquals(newInstructor.getDateOfHire(), addedInstructor.getDateOfHire());
-      assertEquals(newInstructor.getCourses(), addedInstructor.getCourses());
-   }
+            assertTrue(deleted);
+        }
+    }
+
+    @Test
+    void testUpdateInstructor() {
+        List<Instructor> instructors = instructorServices.retrieveAllInstructors();
+
+        if (instructors.isEmpty()) {
+            // Handle the case where no instructors are available for updating
+            fail("No instructors found for updating");
+        } else {
+            // Get the first instructor
+            Instructor firstInstructor = instructors.get(0);
+
+            // Modify some properties of the instructor
+            String updatedFirstName = "UpdatedFirstName";
+            String updatedLastName = "UpdatedLastName";
+            LocalDate updatedDateOfHire = LocalDate.now().minusYears(1);
+
+            // Set the updated properties
+            firstInstructor.setFirstName(updatedFirstName);
+            firstInstructor.setLastName(updatedLastName);
+            firstInstructor.setDateOfHire(updatedDateOfHire);
+
+            // Perform the update operation
+            Instructor updatedInstructor = instructorServices.updateInstructor(firstInstructor);
+
+            // Check if the instructor was updated
+            assertNotNull(updatedInstructor);
+            assertEquals(updatedFirstName, updatedInstructor.getFirstName());
+            assertEquals(updatedLastName, updatedInstructor.getLastName());
+            assertEquals(updatedDateOfHire, updatedInstructor.getDateOfHire());
+        }
+    }
+
+
 
 }

@@ -16,4 +16,6 @@ public interface IInstructorServices {
 
     Instructor addInstructorAndAssignToCourse(Instructor instructor, Long numCourse);
 
+    boolean deleteInstructor(Long numInstructor);
+
 }
