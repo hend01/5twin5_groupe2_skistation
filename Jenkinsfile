@@ -81,22 +81,21 @@ pipeline {
                 sh "docker-compose up -d"
             }
         }
-        post {
-                success {
-                    emailext(
-                        subject: "Build Successful: Build #${currentBuild.number}",
-                        body: "The build was successful. Build number: ${currentBuild.number}",
-                        to: 'recipient@example.com'
-                    )
-                }
-                failure {
-                    emailext(
-                        subject: "Build Failed: Build #${currentBuild.number}",
-                        body: "The build has failed. Build number: ${currentBuild.number}",
-                        to: 'mohamedskander.zouaoui@esprit.tn'
-                    )
-                }
-            }
-
     }
+    post {
+            success {
+                emailext(
+                    subject: "Build Successful: Build #${currentBuild.number}",
+                    body: "The build was successful. Build number: ${currentBuild.number}",
+                    to: 'recipient@example.com'
+                )
+            }
+            failure {
+                emailext(
+                    subject: "Build Failed: Build #${currentBuild.number}",
+                    body: "The build has failed. Build number: ${currentBuild.number}",
+                    to: 'mohamedskander.zouaoui@esprit.tn'
+                )
+            }
+        }
 }
