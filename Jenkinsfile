@@ -18,6 +18,7 @@ pipeline {
                 echo "Getting Project from Git"
                 git branch: 'SkanderZouaoui',
                     url: 'https://github.com/hend01/5twin5_groupe2_skistation'
+                }
             }
         }
          stage('Build') {
@@ -27,7 +28,6 @@ pipeline {
                     sh "mvn clean package -DskipTests" // Build your Maven project
                 }
             }
-
         }
 
         stage('JUnit / Mockito Tests') {
@@ -35,7 +35,7 @@ pipeline {
                         // Run JUnit and Mockito tests using Maven
                         sh 'mvn test'
                     }
-                        }
+        }
 
 
         stage('SonarQube Analysis') {
@@ -115,7 +115,6 @@ pipeline {
         always {
             cleanWs()
         }
-
+*/
     }
-    */
 }
