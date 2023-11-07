@@ -4,7 +4,7 @@ pipeline {
         DOCKER_IMAGE_TAG = "v${BUILD_NUMBER}" // Using Jenkins BUILD_NUMBER as the tag
         PATH = "$PATH:/usr/local/bin"
         SONAR_CREDENTIALS = credentials('f42d7219-5bba-4e05-82ef-ee2115b07063')
-        SONAR_RUNNER_HOME = '/opt/sonarqube'
+
 
     }
     agent any
@@ -39,16 +39,13 @@ pipeline {
 
 
         stage('SonarQube Analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv("My SonarQube Server") {
-                        withCredentials([usernamePassword(credentialsId: SONAR_CREDENTIALS, passwordVariable: 'SONAR_PASSWORD', usernameVariable: 'SONAR_LOGIN')]) {
-                            def scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                            sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONAR_LOGIN} -Dsonar.password=${SONAR_PASSWORD}"
+                    steps {
+                        script{
+                            echo 'sonar test';
+                            withCredentials([usernamePassword(credentialsId: SONAR_CREDENTIALS, passwordVariable: 'SONAR_PASSWORD', usernameVariable: 'SONAR_LOGIN')]) {
+                            sh "mvn sonar:sonar -Dsonar.login=${SONAR_LOGIN} -Dsonar.password=${SONAR_PASSWORD}"
                         }
-                    }
                 }
-            }
         }
 /*
         stage("Build Docker image") {
