@@ -51,13 +51,10 @@ pipeline {
                         sh "mvn deploy -DskipTests=true "
                     }
         }
-        stage('RESTART PROMETHEUS') {
+
+        stage('PROMETHEUS ET GRAFANA') {
                     steps {
                         sh "docker restart ${PROMETHEUS_CONTAINER}"
-                    }
-        }
-        stage('RESTART GRAFANA') {
-                    steps {
                         sh "docker restart ${GRAFANA_CONTAINER}"
                     }
         }
@@ -71,7 +68,7 @@ pipeline {
             }
         }
 
-        stage('Docker Hub') {
+        stage('PUSH TO DOCKERHUB') {
             steps {
                 sh "docker login -u zouaouiskander -p Skandeer1"
                 sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG zouaouiskander/ski:$DOCKER_IMAGE_TAG"
@@ -84,6 +81,22 @@ pipeline {
                 sh "docker-compose up -d"
             }
         }
+        post {
+                success {
+                    emailext(
+                        subject: "Build Successful: Build #${currentBuild.number}",
+                        body: "The build was successful. Build number: ${currentBuild.number}",
+                        to: 'recipient@example.com'
+                    )
+                }
+                failure {
+                    emailext(
+                        subject: "Build Failed: Build #${currentBuild.number}",
+                        body: "The build has failed. Build number: ${currentBuild.number}",
+                        to: 'mohamedskander.zouaoui@esprit.tn'
+                    )
+                }
+            }
 
     }
 }
