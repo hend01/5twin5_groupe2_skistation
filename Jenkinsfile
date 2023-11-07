@@ -42,6 +42,7 @@ pipeline {
                     steps {
                         echo 'sonar test';
                         sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=skander'
+                }
         }
 
         stage("Build Docker image") {
