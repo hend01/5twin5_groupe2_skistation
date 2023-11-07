@@ -3,7 +3,6 @@ pipeline {
         dockerImageName = "ski"
         DOCKER_IMAGE_TAG = "v${BUILD_NUMBER}" // Using Jenkins BUILD_NUMBER as the tag
         PATH = "$PATH:/usr/local/bin"
-        SONAR_CREDENTIALS = credentials('f42d7219-5bba-4e05-82ef-ee2115b07063')
     }
     agent any
     tools {
@@ -38,12 +37,13 @@ pipeline {
             steps {
                 script {
                     echo 'sonar test';
-                    withCredentials([usernamePassword(credentialsId: SONAR_CREDENTIALS, passwordVariable: 'SONAR_PASSWORD', usernameVariable: 'SONAR_LOGIN')]) {
+                    withCredentials([usernamePassword(credentialsId: 'f42d7219-5bba-4e05-82ef-ee2115b07063', passwordVariable: 'SONAR_PASSWORD', usernameVariable: 'SONAR_LOGIN')]) {
                         sh "mvn sonar:sonar -Dsonar.login=${SONAR_LOGIN} -Dsonar.password=${SONAR_PASSWORD}"
                     }
                 }
             }
         }
+
         /*
         stage("Build Docker image") {
             steps {
