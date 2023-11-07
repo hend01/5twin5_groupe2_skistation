@@ -87,7 +87,7 @@ pipeline {
                 emailext(
                     subject: "Build Successful: Build #${currentBuild.number}",
                     body: "The build was successful. Build number: ${currentBuild.number}",
-                    to: 'recipient@example.com'
+                    to: 'mohamedskander.zouaoui@esprit.tn'
                 )
             }
             failure {
