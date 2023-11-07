@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: tn.esprit.SkiStationProject.InstructorServiceTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.44 s - in tn.esprit.SkiStationProject.InstructorServiceTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.301 s - in tn.esprit.SkiStationProject.InstructorServiceTest

@@ -79,6 +79,20 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <!-- Specify Docker image details -->
+                    <imageName>zouaouiskander/ski</imageName>
+                    <imageTags>
+                        <imageTag>V01</imageTag>
+                    </imageTags>
+                    <!-- Registry details -->
+                    <serverId>nexus-registry-id</serverId>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
