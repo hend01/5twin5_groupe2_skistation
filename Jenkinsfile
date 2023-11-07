@@ -3,6 +3,8 @@ pipeline {
         dockerImageName = "ski"
         DOCKER_IMAGE_TAG = "v${BUILD_NUMBER}" // Using Jenkins BUILD_NUMBER as the tag
         PATH = "$PATH:/usr/local/bin"
+        GRAFANA_CONTAINER = "871435b97d51"
+        PROMETHEUS_CONTAINER= "350eeb5ae795"
     }
     agent any
     tools {
@@ -49,8 +51,18 @@ pipeline {
                         sh "mvn deploy -DskipTests=true "
                     }
         }
+        stage('RESTART PROMETHEUS') {
+                    steps {
+                        sh "docker restart ${PROMETHEUS_CONTAINER}"
+                    }
+        }
+        stage('RESTART GRAFANA') {
+                    steps {
+                        sh "docker restart ${GRAFANA_CONTAINER}"
+                    }
+        }
 
-        /*
+
         stage("Build Docker image") {
             steps {
                 script {
@@ -66,7 +78,7 @@ pipeline {
                 sh "docker push  zouaouiskander/ski:$DOCKER_IMAGE_TAG"
             }
         }
-
+/*
         stage("Deploy to private registry") {
             steps {
                 script {
