@@ -52,6 +52,7 @@ pipeline {
                 }
             }
         }
+        /*
          stage('Docker Hub') {
               steps {
                      sh "docker login -u zouaouiskander -p Skandeer1"
@@ -60,7 +61,7 @@ pipeline {
               }
         }
 
-       /* stage("Deploy to private registry") {
+        stage("Deploy to private registry") {
                     steps {
                         script {
 
@@ -75,7 +76,7 @@ pipeline {
                         }
 
                     }
-        }*/
+        }
 
         stage('Nexus Deployment') {
                     steps {
@@ -83,7 +84,7 @@ pipeline {
                             sh "mvn deploy -DskipTests=true "
 
                     }
-        }
+        }*/
 
         stage("Start app and db") {
             steps {
