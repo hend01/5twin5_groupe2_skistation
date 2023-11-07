@@ -4,7 +4,7 @@ pipeline {
         DOCKER_IMAGE_TAG = "v${BUILD_NUMBER}" // Using Jenkins BUILD_NUMBER as the tag
         PATH = "$PATH:/usr/local/bin"
         SONAR_CREDENTIALS = credentials('f42d7219-5bba-4e05-82ef-ee2115b07063')
-
+        SONAR_RUNNER_HOME = '/opt/sonarqube'
 
     }
     agent any
