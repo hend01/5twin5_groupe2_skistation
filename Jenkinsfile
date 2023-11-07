@@ -28,17 +28,17 @@ pipeline {
 
         }
 
-  stage('JUnit / Mockito Tests') {
-                            steps {
-                                // Run JUnit and Mockito tests using Maven
-                                sh 'mvn test'
-                            }
+        stage('JUnit / Mockito Tests') {
+                    steps {
+                        // Run JUnit and Mockito tests using Maven
+                        sh 'mvn test'
+                    }
                         }
-stage('SonarQube ') {
-             steps {
-                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=skander'
-                   }
-             }
+        stage('SonarQube ') {
+                     steps {
+                            sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=skander'
+                           }
+                     }
 
         stage("Build Docker image") {
             steps {
@@ -47,30 +47,37 @@ stage('SonarQube ') {
                 }
             }
         }
-         stage('dockerhub') {
+         stage('Docker Hub') {
               steps {
-
-         sh "docker login -u zouaouiskander -p Skandeer1"
-         sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG zouaouiskander/ski:$DOCKER_IMAGE_TAG"
-         sh "docker push  zouaouiskander/ski:$DOCKER_IMAGE_TAG"
+                     sh "docker login -u zouaouiskander -p Skandeer1"
+                     sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG zouaouiskander/ski:$DOCKER_IMAGE_TAG"
+                     sh "docker push  zouaouiskander/ski:$DOCKER_IMAGE_TAG"
               }
+        }
+
+        stage("Deploy to private registry") {
+                    steps {
+                        script {
+
+                            def nexusRegistryUrl = '172.17.0.2:8081/repository/maven-releases/'
+                            def dockerUsername = 'zouaouiskander'
+                            def dockerPassword = 'Skandeer1'
+
+                            sh "docker build -t $dockerImageName:$DOCKER_IMAGE_TAG ."
+                            sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG ${nexusRegistryUrl}$dockerImageName:$DOCKER_IMAGE_TAG"
+                            sh "echo ${dockerPassword} | docker login --username ${dockerUsername} --password ${dockerPassword} ${nexusRegistryUrl}"
+                            sh "docker push ${nexusRegistryUrl}$dockerImageName:$DOCKER_IMAGE_TAG"
+                        }
+
                     }
+        }
 
-stage("Deploy to private registry") {
-            steps {
-                script {
+        stage('Nexus Deployment') {
+                    steps {
 
-                   // def nexusRegistryUrl = '127.0.0.1:8081/repository/ski/'
-                    def dockerUsername = 'zouaouiskander'
-                    def dockerPassword = 'Skandeer1'
+                            sh "mvn deploy -DskipTests=true "
 
-                    sh "docker build -t $dockerImageName:$DOCKER_IMAGE_TAG ."
-                   // sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG ${nexusRegistryUrl}$dockerImageName:$DOCKER_IMAGE_TAG"
-                   // sh "echo ${dockerPassword} | docker login --username ${dockerUsername} --password ${dockerPassword} ${nexusRegistryUrl}"
-                   // sh "docker push ${nexusRegistryUrl}$dockerImageName:$DOCKER_IMAGE_TAG"
-                }
-
-            }
+                    }
         }
 
         stage("Start app and db") {
@@ -87,15 +94,13 @@ stage("Deploy to private registry") {
                                 }
                             }
 
-/*
-//
         stage("Deploy Dokcer Image to private registry") {
             steps {
                 sh "..............."
             }
         }
     }
-// deploymentRepo
+     deploymentRepo
     post {
         always {
             cleanWs()
