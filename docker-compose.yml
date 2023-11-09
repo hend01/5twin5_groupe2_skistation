@@ -6,7 +6,7 @@ services:
         environment:
           - MYSQL_ROOT_PASSWORD=amine
         ports:
-          - "3307:3306"
+          - "3306:3306"
         restart: unless-stopped
     springmaven:
         image: "aminebensaid/devopsimage"
