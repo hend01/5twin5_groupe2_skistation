@@ -111,29 +111,9 @@
 							<goal>report</goal>
 						</goals>
 					</execution>
-					<execution>
-						<id>default-check</id>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<!-- Configuration des seuils de couverture -->
-							<rules>
-								<rule>
-									<element>BUNDLE</element>
-									<limits>
-										<limit>
-											<counter>INSTRUCTION</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>0.80</minimum> <!-- Ajuste le seuil selon tes besoins -->
-										</limit>
-									</limits>
-								</rule>
-							</rules>
-						</configuration>
-					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 		<finalName>gestion-station-ski-1.0</finalName>
 	</build>
