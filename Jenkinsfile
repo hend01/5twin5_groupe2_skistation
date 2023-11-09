@@ -5,6 +5,7 @@ pipeline {
         PATH = "$PATH:/usr/local/bin"
         GRAFANA_CONTAINER = "871435b97d51"
         PROMETHEUS_CONTAINER= "350eeb5ae795"
+        STAGE_NAME = null
     }
     agent any
     tools {
@@ -86,7 +87,7 @@ pipeline {
             success {
                 emailext(
                     subject: "Build Successful: Build #${currentBuild.number}",
-                    body: "The build was successful. Build number: ${currentBuild.number}",
+                    body: "The build was successful. Build start time ${currentBuild.startTime} , Build number: ${currentBuild.number}",
                     from: "jenkins@votreserveur.com",
                     to: 'mohamedskander.zouaoui@esprit.tn'
                 )
@@ -96,7 +97,7 @@ pipeline {
                             def failedStage = env.STAGE_NAME ?: 'Unknown Stage'
                             emailext(
                                 subject: "Build Failed: Build #${currentBuild.number}",
-                                body: "The build has failed in the following stage: ${failedStage}. Build number: ${currentBuild.number}",
+                                body: "The build has failed in the following stage: ${failedStage}.Build start time ${currentBuild.startTime} , Build number: ${currentBuild.number}",
                                 from: "jenkins@votreserveur.com",
                                 to: 'mohamedskander.zouaoui@esprit.tn'
                             )
