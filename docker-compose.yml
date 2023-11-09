@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
 
   springmaven:
-    image: "aminebensaid/bensaidmedamine_groupe2_gestionstation_ski:latest"
+    image: "aminebensaid/bensaidmedamine_groupe2_gestionstation_ski:1.0.0"
     ports:
       - "8089:8089"
     environment:
