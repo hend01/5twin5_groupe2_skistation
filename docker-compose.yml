@@ -9,7 +9,7 @@ services:
           - "3306:3306"
         restart: unless-stopped
     springmaven:
-        image: "aminebensaid/bensaidmedamine_groupe2_gestionstation_ski"
+        image: "aminebensaid/bensaidmedamine_groupe2_gestionstation_ski:latest"
         build: ./Dockerfile
         ports:
           - "8089:8089"
