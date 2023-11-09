@@ -19,7 +19,7 @@ pipeline {
                 url: 'https://github.com/hend01/5twin5_groupe2_skistation'
             }
         }
-        stage('Build') {
+        stage('BUILD') {
             steps {
                 script {
                     sh "mvn --version" // Use the specified Maven installation
@@ -28,14 +28,14 @@ pipeline {
             }
         }
 
-        stage('JUNIT / Mockito') {
+        stage('JunitMockito') {
             steps {
                 // Run JUnit and Mockito tests using Maven
                 sh 'mvn test'
             }
         }
 
-        stage('MVN SONARQUBE') {
+        stage('SONARQUBE') {
             steps {
                 script {
                     echo 'sonar test';
@@ -46,13 +46,13 @@ pipeline {
             }
         }
 
-        stage('MVN NEXUS') {
+        stage('NEXUS') {
                     steps {
                         sh "mvn deploy -DskipTests=true "
                     }
         }
 
-        stage('PROMETHEUS ET GRAFANA') {
+        stage('PROMETHEUSGRAFANA') {
                     steps {
                         sh "docker restart ${PROMETHEUS_CONTAINER}"
                         sh "docker restart ${GRAFANA_CONTAINER}"
