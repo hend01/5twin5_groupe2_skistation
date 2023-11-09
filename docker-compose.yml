@@ -1,22 +1,22 @@
 version: "3"
 services:
-    db-mysql:
-        image: "mysql:latest"
-        container_name: db-mysql
-        environment:
-          - MYSQL_ROOT_PASSWORD=amine
-        ports:
-          - "3306:3306"
-        restart: unless-stopped
-    springmaven:
-        image: "aminebensaid/bensaidmedamine_groupe2_gestionstation_ski:latest"
-        build: ./Dockerfile
-        ports:
-          - "8089:8089"
-        environment:
-          - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/skistation?createDatabaseIfNotExist=true&userSSL=false&max_allowed_packet=15728640
-          - SPRING_DATASOURCE_USERNAME=root
-          - SPRING_DATASOURCE_PASSWORD=amine
-        restart: unless-stopped
-        depends_on:
-          - db-mysql
+  db-mysql:
+    image: "mysql:latest"
+    container_name: db-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=amine
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
+  springmaven:
+    image: "aminebensaid/bensaidmedamine_groupe2_gestionstation_ski:latest"
+    ports:
+      - "8089:8089"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/skistation?createDatabaseIfNotExist=true&userSSL=false&max_allowed_packet=15728640
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=amine
+    restart: unless-stopped
+    depends_on:
+      - db-mysql
