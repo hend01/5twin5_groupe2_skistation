@@ -87,15 +87,20 @@ pipeline {
                 emailext(
                     subject: "Build Successful: Build #${currentBuild.number}",
                     body: "The build was successful. Build number: ${currentBuild.number}",
+                    from: "jenkins@votreserveur.com",
                     to: 'mohamedskander.zouaoui@esprit.tn'
                 )
             }
             failure {
-                emailext(
-                    subject: "Build Failed: Build #${currentBuild.number}",
-                    body: "The build has failed. Build number: ${currentBuild.number}",
-                    to: 'mohamedskander.zouaoui@esprit.tn'
-                )
-            }
+                        script {
+                            def failedStage = env.STAGE_NAME ?: 'Unknown Stage'
+                            emailext(
+                                subject: "Build Failed: Build #${currentBuild.number}",
+                                body: "The build has failed in the following stage: ${failedStage}. Build number: ${currentBuild.number}",
+                                from: "jenkins@votreserveur.com",
+                                to: 'mohamedskander.zouaoui@esprit.tn'
+                            )
+                        }
+                }
         }
 }
