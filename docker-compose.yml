@@ -1,34 +1,22 @@
-version: '3.8'
+version: "3"
 services:
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: 
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'  
-      MYSQL_DATABASE: stationSki
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_config:/etc/mysql/conf.d
-    networks:
-      - app-network
-
-  spring-app:
-    image: aminebensaid/bensaidmedamine_groupe2_gestionstation_ski:1.0.0
-    ports:
-      - "8089:8089"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/stationSki
-    depends_on:
-      - mysql
-    networks:
-      - app-network
-
-volumes:
-  mysql_data:
-  mysql_config:
-networks:
-  app-network:
-    driver: bridge
+    db-mysql:
+        image: "mysql:latest"
+        container_name: db-mysql
+        environment:
+          - MYSQL_ROOT_PASSWORD=amine
+        ports:
+          - "3307:3306"
+        restart: unless-stopped
+    springmaven:
+        image: "aminebensaid/devopsimage"
+        build: ./Dockerfile
+        ports:
+          - "8089:8089"
+        environment:
+          - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/skistation?createDatabaseIfNotExist=true&userSSL=false&max_allowed_packet=15728640
+          - SPRING_DATASOURCE_USERNAME=root
+          - SPRING_DATASOURCE_PASSWORD=amine
+        restart: unless-stopped
+        depends_on:
+          - db-mysql
