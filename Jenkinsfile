@@ -5,7 +5,6 @@ pipeline {
         PATH = "$PATH:/usr/local/bin"
         GRAFANA_CONTAINER = "871435b97d51"
         PROMETHEUS_CONTAINER= "350eeb5ae795"
-        STAGE_NAME = null
     }
     agent any
     tools {
@@ -20,7 +19,7 @@ pipeline {
                 url: 'https://github.com/hend01/5twin5_groupe2_skistation'
             }
         }
-        stage('BUILD') {
+        stage('Build') {
             steps {
                 script {
                     sh "mvn --version" // Use the specified Maven installation
@@ -29,14 +28,14 @@ pipeline {
             }
         }
 
-        stage('JunitMockito') {
+        stage('JUNIT / Mockito') {
             steps {
                 // Run JUnit and Mockito tests using Maven
                 sh 'mvn test'
             }
         }
 
-        stage('SONARQUBE') {
+        stage('MVN SONARQUBE') {
             steps {
                 script {
                     echo 'sonar test';
@@ -47,13 +46,13 @@ pipeline {
             }
         }
 
-        stage('NEXUS') {
+        stage('MVN NEXUS') {
                     steps {
                         sh "mvn deploy -DskipTests=true "
                     }
         }
 
-        stage('PROMETHEUSGRAFANA') {
+        stage('PROMETHEUS ET GRAFANA') {
                     steps {
                         sh "docker restart ${PROMETHEUS_CONTAINER}"
                         sh "docker restart ${GRAFANA_CONTAINER}"
@@ -87,21 +86,16 @@ pipeline {
             success {
                 emailext(
                     subject: "Build Successful: Build #${currentBuild.number}",
-                    body: "The build was successful. Build start time ${currentBuild.startTime} , Build number: ${currentBuild.number}",
-                    from: "jenkins@votreserveur.com",
+                    body: "The build was successful.  Build start time ${currentBuild.startTime} , Build number: ${currentBuild.number}",
                     to: 'mohamedskander.zouaoui@esprit.tn'
                 )
             }
             failure {
-                        script {
-                            def failedStage = env.STAGE_NAME ?: 'Unknown Stage'
-                            emailext(
-                                subject: "Build Failed: Build #${currentBuild.number}",
-                                body: "The build has failed in the following stage: ${failedStage}.Build start time ${currentBuild.startTime} , Build number: ${currentBuild.number}",
-                                from: "jenkins@votreserveur.com",
-                                to: 'mohamedskander.zouaoui@esprit.tn'
-                            )
-                        }
-                }
+                emailext(
+                    subject: "Build Failed: Build #${currentBuild.number}",
+                    body: "The build has failed.  Build start time ${currentBuild.startTime} , Build number: ${currentBuild.number}",
+                    to: 'mohamedskander.zouaoui@esprit.tn'
+                )
+            }
         }
 }
