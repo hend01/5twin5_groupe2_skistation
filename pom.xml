@@ -115,7 +115,7 @@
 			</plugin>
 
 		</plugins>
-		<finalName>gestion-station-ski-1.0</finalName>
+		<finalName>Hend-station-ski</finalName>
 	</build>
 
 </project>
