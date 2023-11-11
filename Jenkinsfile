@@ -94,7 +94,7 @@ pipeline {
 
     post {
         always {
-
+               displayName('Email Notifications') {
 
             emailext to: "moetaz.doghman@esprit.tn",
               subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
@@ -102,5 +102,6 @@ pipeline {
                             attachLog: true
 
         }
+       }
     }
 }
