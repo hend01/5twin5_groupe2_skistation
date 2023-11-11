@@ -38,20 +38,7 @@ pipeline {
                     sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
                    }
              }
-      /*
-        stage('SonarCloud Analysis') {
-                    environment {
-                        SONAR_ORGANIZATION = 'doghman'
-                        SONAR_PROJECT_KEY = 'doghman_ski'
-                        SONAR_LOGIN = credentials('sonarcloud-token')
-                    }
-                    steps {
-                        script {
-                            sh "mvn verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=${SONAR_ORGANIZATION} -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.login=${SONAR_LOGIN}"
-                        }
-                    }
-        }
-        */
+
 
         stage("Build Docker image") {
             steps {
@@ -106,7 +93,15 @@ pipeline {
                             sh "docker-compose up -d"  // Start the application and database containers
                         }
                     }
-                }
+        }
+
+        post{
+                        always{
+                            mail to: "moetaz.doghman@esprit.tn",
+                            subject: "Test Email",
+                            body: "Test"
+                        }
+        }
 
 
     }
