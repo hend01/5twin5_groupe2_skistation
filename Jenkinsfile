@@ -17,7 +17,7 @@ pipeline {
                     url: 'https://github.com/hend01/5twin5_groupe2_skistation.git'
             }
         }
-
+/*
         stage("Build") {
             steps {
                 sh "chmod +x ./mvnw"
@@ -50,7 +50,7 @@ pipeline {
                 }
             }
         }
-
+*/
         stage("Deploy Artifact to Nexus") {
             steps {
                 sh "mvn deploy -Pprod"
@@ -93,9 +93,10 @@ pipeline {
 
     post {
         always {
-            mail to: "moetaz.doghman@esprit.tn",
+            emailext to: "moetaz.doghman@esprit.tn",
             subject: "Test Email",
-            body: "Test"
+            body: "Test",
+            attachLog: true
         }
     }
 }
