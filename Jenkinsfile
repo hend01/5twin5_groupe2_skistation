@@ -17,7 +17,7 @@ pipeline {
                     url: 'https://github.com/hend01/5twin5_groupe2_skistation.git'
             }
         }
-/*
+
         stage("Build") {
             steps {
                 sh "chmod +x ./mvnw"
@@ -50,7 +50,7 @@ pipeline {
                 }
             }
         }
-*/
+
         stage("Deploy Artifact to Nexus") {
             steps {
                 sh "mvn deploy -Pprod"
