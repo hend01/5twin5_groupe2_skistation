@@ -5,5 +5,5 @@ COPY mvnw pom.xml ./
 RUN mvn dependency:resolve
 COPY src ./src
 EXPOSE 8089
-ADD /target/gestion-station-ski-1.0.jar gestion-station-ski-1.0.jar
+ADD /target/Hend-station-ski.jar Hend-station-ski.jar
 CMD ["mvn", "spring-boot:run"]
