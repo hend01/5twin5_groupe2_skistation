@@ -1,22 +1,33 @@
-version: "3"
+version: '3.8'
 services:
-    db-mysql:
-        image: "mysql:latest"
-        container_name: db-mysql
-        environment:
-          - MYSQL_ROOT_PASSWORD=1234
-        ports:
-          - "3307:3306"
-        restart: unless-stopped
-    springmaven:
-        image: "hend01/devopsimage"
-        build: ./Dockerfile
-        ports:
-          - "8090:8090"
-        environment:
-          - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/skistation?createDatabaseIfNotExist=true&userSSL=false&max_allowed_packet=15728640
-          - SPRING_DATASOURCE_USERNAME=root
-          - SPRING_DATASOURCE_PASSWORD=1234
-        restart: unless-stopped
-        depends_on:
-          - db-mysql
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234  
+      MYSQL_DATABASE: skistation
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_config:/etc/mysql/conf.d
+    networks:
+      - app-network
+  spring-app:
+    image: "hend01/devopsimage" 
+    ports:
+      - "8089:8089"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/skistation?createDatabaseIfNotExist=true&useSSL=false&max_allowed_packet=15728640
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+  mysql_config:
+
+networks:
+  app-network:
+    driver: bridge
