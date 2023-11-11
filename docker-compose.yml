@@ -14,7 +14,7 @@ services:
     networks:
       - app-network
   spring-app:
-    image: "hend01/devopsimage" 
+    image: "hend01/hendchaouch_5twin5_groupe2" 
     ports:
       - "8089:8089"
     environment:
