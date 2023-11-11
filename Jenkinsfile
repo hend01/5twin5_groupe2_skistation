@@ -100,7 +100,7 @@ pipeline {
                             attachmentsPattern: '*.csv'
 
                         cleanWs()
-                        }
+                        
         }
     }
 }
