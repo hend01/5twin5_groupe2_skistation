@@ -1,19 +1,18 @@
 pipeline {
+    agent any
 
     environment {
         dockerimagename = "ski"
         dockerImage = ""
         nexusRepositoryURL = "192.168.33.10:8081/repository/doghman/"
-        nexusRepositoryName = "doghman"  // Replace with your Nexus repository name
-        dockerImageVersion = "1.0"  // Replace with your desired image version
+        nexusRepositoryName = "doghman"
+        dockerImageVersion = "1.0"
     }
-
-    agent any
 
     stages {
         stage ('GIT') {
             steps {
-               echo "Getting Project from Git";
+                echo "Getting Project from Git"
                 git branch: 'moetazDoghman',
                     url: 'https://github.com/hend01/5twin5_groupe2_skistation.git'
             }
@@ -24,21 +23,20 @@ pipeline {
                 sh "chmod +x ./mvnw"
                 sh "mvn clean package -Pprod -X"
                 sh "mvn --version"
-                // sh "mvn clean package -DskipTests"
             }
         }
+
         stage('Run JUnit and Mockito Tests') {
             steps {
-                // Run JUnit and Mockito tests using Maven
                 sh 'mvn test'
             }
         }
-        stage('SonarQube Analysis ') {
-             steps {
-                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                   }
-             }
 
+        stage('SonarQube Analysis') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+            }
+        }
 
         stage("Build Docker image") {
             steps {
@@ -52,9 +50,6 @@ pipeline {
                 }
             }
         }
-
-
-
 
         stage("Deploy Artifact to Nexus") {
             steps {
@@ -76,35 +71,31 @@ pipeline {
                     sh "echo ${dockerPassword} | docker login -u ${dockerUsername} --password-stdin ${nexusRegistryUrl}"
                     sh "docker push ${nexusRegistryUrl}${dockerImage}:${dockerTag}"
                 }
-
             }
         }
+
         stage("Start app and db") {
-                    steps {
-                        script {
-                            def dockerImage = 'ski'
-                            def dockerTag = 'latest'
-                            def nexusRegistryUrl = '172.17.0.3:8082/repository/doghman/'
-                            def dockerUsername = 'admin'
-                            def dockerPassword = 'nexus'
+            steps {
+                script {
+                    def dockerImage = 'ski'
+                    def dockerTag = 'latest'
+                    def nexusRegistryUrl = '172.17.0.3:8082/repository/doghman/'
+                    def dockerUsername = 'admin'
+                    def dockerPassword = 'nexus'
 
-                            sh "echo ${dockerPassword} | docker login -u ${dockerUsername} --password-stdin ${nexusRegistryUrl}"
-                            sh "docker-compose pull" // Pull the Docker image from the private registry
-                            sh "docker-compose up -d"  // Start the application and database containers
-                        }
-                    }
+                    sh "echo ${dockerPassword} | docker login -u ${dockerUsername} --password-stdin ${nexusRegistryUrl}"
+                    sh "docker-compose pull"
+                    sh "docker-compose up -d"
+                }
+            }
         }
+    }
 
-        post{
-                        always{
-                            mail to: "moetaz.doghman@esprit.tn",
-                            subject: "Test Email",
-                            body: "Test"
-                        }
+    post {
+        always {
+            mail to: "moetaz.doghman@esprit.tn",
+            subject: "Test Email",
+            body: "Test"
         }
-
-
     }
 }
-
-
