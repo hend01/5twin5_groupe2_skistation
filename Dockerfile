@@ -1,4 +1,9 @@
-FROM openjdk:8
+FROM maven:3.8.4-openjdk-11
+WORKDIR /app
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN mvn dependency:resolve
+COPY src ./src
 EXPOSE 8089
-COPY ./target/gestion-station-ski-1.0.jar gestion-station-ski-1.0.jar
-ENTRYPOINT ["java","-jar","gestion-station-ski-1.0.jar"]
+ADD /target/gestion-station-ski-1.0.jar gestion-station-ski-1.0.jar
+CMD ["mvn", "spring-boot:run"]
