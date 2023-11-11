@@ -17,7 +17,7 @@ pipeline {
                     url: 'https://github.com/hend01/5twin5_groupe2_skistation.git'
             }
         }
-
+         /*
         stage("Build") {
             steps {
                 sh "chmod +x ./mvnw"
@@ -90,15 +90,17 @@ pipeline {
             }
         }
     }
-
+    */
     post {
         always {
             archiveArtifacts artifacts: '*.csv', onlyIfSuccessful: true
+
             emailext to: "moetaz.doghman@esprit.tn",
-             subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-             attachLog: true
-             cleanWs()
+              subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+                             attachmentsPattern: '*.csv'
+
+                         cleanWs()
 
         }
     }
