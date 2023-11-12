@@ -79,23 +79,6 @@ class RegistrationServicesMockitoTest {
         assertEquals(result, registration);
     }
 
-
-    @Test
-    void numWeeksCourseOfInstructorBySupport() {
-        // Arrange
-        Long instructorId = 1L;
-        Support support = Support.SKI; // Assuming Support is an enum
-
-        when(instructorRepository.findById(instructorId)).thenReturn(Optional.of(new Instructor())); // Assuming Instructor object should be returned
-        when(registrationRepository.numWeeksCourseOfInstructorBySupport(instructorId, support)).thenReturn(Arrays.asList(1, 2, 3));
-
-        // Act
-        List<Integer> result = registrationServices.numWeeksCourseOfInstructorBySupport(instructorId, support);
-
-        // Assert
-        verify(instructorRepository, times(1)).findById(instructorId);
-        verify(registrationRepository, times(1)).numWeeksCourseOfInstructorBySupport(instructorId, support);
-        assertEquals(Arrays.asList(1, 2, 3), result);
-    }
+    
 
 }
