@@ -32,3 +32,7 @@ Nsrc/main/java/tn/esprit/SkiStationProject/services/InstructorServicesImpl.java
 Ssrc/main/java/tn/esprit/SkiStationProject/controllers/InstructorRestController.java,7/d/7dd9bb476ba16112c3386230ac6a44b370e7507c
 t
 Dsrc/test/java/tn/esprit/SkiStationProject/InstructorServiceTest.java,f/1/f15efdfe2d11bc75eb1212a1230d2f67505a5dfa
+u
+Esrc/main/java/tn/esprit/SkiStationProject/aspects/LoggingAspects.java,d/e/dea284e4ff5cca5f5a7d03e36b933a75e813b786
+x
+Hsrc/main/java/tn/esprit/SkiStationProject/aspects/PerformenceAspect.java,6/b/6bf34ebb40fd0e35e85a7f21c5ba785529ae0a5f
