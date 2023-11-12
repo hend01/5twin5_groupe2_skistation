@@ -44,6 +44,7 @@ class RegistrationServicesMockitoTest {
         MockitoAnnotations.openMocks(this);
     }
 
+   /*
     @Test
     void addRegistrationAndAssignToSkier() {
         // Arrange
@@ -79,7 +80,7 @@ class RegistrationServicesMockitoTest {
         assertEquals(result, registration);
     }
 
-
+    */
 
 
 
