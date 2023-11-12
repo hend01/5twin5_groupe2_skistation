@@ -28,4 +28,8 @@ public class Registration extends BaseEntity {
 	@JsonIgnore
 	@ManyToOne
 	Course course;
+
+	public Registration(int numWeek) {
+		this.numWeek = numWeek;
+	}
 }
