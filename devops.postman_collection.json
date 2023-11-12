@@ -9,8 +9,18 @@
 		{
 			"name": "New Request",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"namePiste\":\"piste1\",\r\n    \"color\":\"BLUE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://172.10.0.140:8089/piste/add"
 			},
 			"response": []
 		}
