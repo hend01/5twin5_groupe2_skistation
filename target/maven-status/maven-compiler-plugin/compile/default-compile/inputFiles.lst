@@ -3,7 +3,6 @@
 /Users/skanderzouaoui/Documents/Devops/src/main/java/tn/esprit/SkiStationProject/entities/Skier.java
 /Users/skanderzouaoui/Documents/Devops/src/main/java/tn/esprit/SkiStationProject/repositories/CourseRepository.java
 /Users/skanderzouaoui/Documents/Devops/src/main/java/tn/esprit/SkiStationProject/repositories/PisteRepository.java
-/Users/skanderzouaoui/Documents/Devops/src/main/java/tn/esprit/SkiStationProject/aspects/ExceptionHandlerAdvice.java
 /Users/skanderzouaoui/Documents/Devops/src/main/java/tn/esprit/SkiStationProject/entities/enums/Color.java
 /Users/skanderzouaoui/Documents/Devops/src/main/java/tn/esprit/SkiStationProject/services/PisteServicesImpl.java
 /Users/skanderzouaoui/Documents/Devops/src/main/java/tn/esprit/SkiStationProject/entities/Registration.java

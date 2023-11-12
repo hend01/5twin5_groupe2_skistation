@@ -29,7 +29,6 @@ tn/esprit/SkiStationProject/aspects/PerformenceAspect.class
 tn/esprit/SkiStationProject/controllers/CourseRestController.class
 tn/esprit/SkiStationProject/entities/Subscription.class
 tn/esprit/SkiStationProject/services/SkierServicesImpl$1.class
-tn/esprit/SkiStationProject/aspects/ExceptionHandlerAdvice.class
 tn/esprit/SkiStationProject/entities/enums/TypeCourse.class
 tn/esprit/SkiStationProject/controllers/RegistrationRestController.class
 tn/esprit/SkiStationProject/entities/Piste.class
