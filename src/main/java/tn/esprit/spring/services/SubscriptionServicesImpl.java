@@ -38,7 +38,12 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
         }
         return subscriptionRepository.save(subscription);
     }
-
+   @Override
+    public List<Subscription> getAllSubscriptions() {
+        List<Subscription> subscriptions = new ArrayList<>();
+        subscriptionRepository.findAll().forEach(subscriptions::add);
+        return subscriptions;
+    }
     @Override
     public Subscription updateSubscription(Subscription subscription) {
         return subscriptionRepository.save(subscription);
