@@ -67,7 +67,7 @@ pipeline {
                 }
             }
         }
-
+    /*
         stage('PUSH TO DOCKERHUB') {
             steps {
                 script{
@@ -79,7 +79,7 @@ pipeline {
                     }
             }
         }
-
+*/
         stage("DOCKER COMPOSE") {
             steps {
                 sh "docker-compose up -d"
