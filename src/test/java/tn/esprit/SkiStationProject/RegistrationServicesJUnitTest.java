@@ -28,7 +28,7 @@ class RegistrationServicesImplTest {
     private CourseRepository courseRepository;
     private InstructorRepository instructorRepository;
     private RegistrationRepository registrationRepository;
-    /*
+
 
     @BeforeEach
     void setUp() {
@@ -78,7 +78,6 @@ class RegistrationServicesImplTest {
     }
 
 
-     */
-    // Add more test cases for other methods as needed
+
 }
 
