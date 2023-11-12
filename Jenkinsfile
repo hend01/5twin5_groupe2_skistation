@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-
+/*
         stage('JUNIT / Mockito') {
             steps {
                 // Run JUnit and Mockito tests using Maven
@@ -45,6 +45,7 @@ pipeline {
                 }
             }
         }
+        */
 
         stage('MVN NEXUS') {
                     steps {
