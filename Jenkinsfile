@@ -70,9 +70,13 @@ pipeline {
 
         stage('PUSH TO DOCKERHUB') {
             steps {
-                sh "docker login -u zouaouiskander -p Skandeer1"
-                sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG zouaouiskander/ski:$DOCKER_IMAGE_TAG"
-                sh "docker push  zouaouiskander/ski:$DOCKER_IMAGE_TAG"
+                script{
+                    withCredentials([usernamePassword(credentialsId: '9632221c-3c9c-4b6a-8e46-6274c153d735', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_LOGIN')]) {
+                        sh "docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}"
+                        sh "docker tag $dockerImageName:$DOCKER_IMAGE_TAG zouaouiskander/ski:$DOCKER_IMAGE_TAG"
+                        sh "docker push  zouaouiskander/ski:$DOCKER_IMAGE_TAG"
+                            }
+                    }
             }
         }
 
