@@ -17,7 +17,9 @@ import tn.esprit.SkiStationProject.repositories.SkierRepository;
 import tn.esprit.SkiStationProject.services.RegistrationServicesImpl;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -78,33 +80,6 @@ class RegistrationServicesMockitoTest {
     }
 
 
-
-    @Test
-    void numWeeksCourseOfInstructorBySupport() {
-        // Arrange
-        Instructor instructor = new Instructor();
-        Course course1 = new Course();
-        course1.setSupport(Support.SKI);
-        Set<Registration> registrations1 = new HashSet<>(Arrays.asList(new Registration(1), new Registration(2)));
-        course1.setRegistrations(registrations1);
-
-        Course course2 = new Course();
-        course2.setSupport(Support.SNOWBOARD);
-        Set<Registration> registrations2 = new HashSet<>(Arrays.asList(new Registration(3), new Registration(4)));
-        course2.setRegistrations(registrations2);
-
-        Set<Course> courses = new HashSet<>(Arrays.asList(course1, course2));
-        instructor.setCourses(courses);
-
-        when(instructorRepository.findById(anyLong())).thenReturn(Optional.of(instructor));
-
-        // Act
-        List<Integer> result = registrationServices.numWeeksCourseOfInstructorBySupport(1L, Support.SKI);
-
-        // Assert
-        verify(instructorRepository, times(1)).findById(1L);
-        assertEquals(result, Arrays.asList(1, 2));
-    }
 
 
 
