@@ -25,7 +25,7 @@ services:
       - mysql
     networks:
       - app-network
-    angular-app:
+  angular-app:
     image: hend01/stationskifront:latest
     ports:
       - "80:80"
