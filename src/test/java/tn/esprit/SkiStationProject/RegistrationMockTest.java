@@ -79,6 +79,46 @@ class RegistrationServicesMockitoTest {
         assertEquals(result, registration);
     }
 
-    
+    @Test
+    void addRegistrationAndAssignToSkierAndCourse() {
+        // Arrange
+        Registration registration = new Registration();
+        Skier skier = new Skier();
+        Course course = new Course();
+
+        when(skierRepository.findById(anyLong())).thenReturn(Optional.of(skier));
+        when(courseRepository.findById(anyLong())).thenReturn(Optional.of(course));
+        when(registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(anyInt(), anyLong(), anyLong())).thenReturn(0L);
+
+        // Act
+        Registration result = registrationServices.addRegistrationAndAssignToSkierAndCourse(registration, 1L, 2L);
+
+        // Assert
+        verify(skierRepository, times(1)).findById(1L);
+        verify(courseRepository, times(1)).findById(2L);
+        verify(registrationRepository, times(1)).save(registration);
+        assertEquals(result, registration);
+    }
+
+    @Test
+    void numWeeksCourseOfInstructorBySupport() {
+        // Arrange
+        Instructor instructor = new Instructor();
+        Course course = new Course();
+        List<Registration> registrations = Arrays.asList(new Registration(), new Registration());
+
+        when(instructorRepository.findById(anyLong())).thenReturn(Optional.of(instructor));
+        when(registrationRepository.numWeeksCourseOfInstructorBySupport(anyLong(), any(Support.class))).thenReturn(Arrays.asList(1, 2));
+
+        // Act
+        List<Integer> result = registrationServices.numWeeksCourseOfInstructorBySupport(1L, Support.SKI);
+
+        // Assert
+        verify(instructorRepository, times(1)).findById(1L);
+        assertEquals(result, Arrays.asList(1, 2));
+    }
+
+
+
 
 }
