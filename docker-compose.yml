@@ -25,6 +25,14 @@ services:
       - mysql
     networks:
       - app-network
+    angular-app:
+    image: hend01/stationskifront:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - spring-app
+    networks:
+      - app-network
 
 volumes:
   mysql_data:
