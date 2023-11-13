@@ -1,0 +1,107 @@
+package tn.esprit.spring;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import tn.esprit.spring.entities.Subscription;
+import tn.esprit.spring.entities.TypeSubscription;
+import tn.esprit.spring.repositories.ISubscriptionRepository;
+import tn.esprit.spring.services.SubscriptionServicesImpl;
+import tn.esprit.spring.repositories.ISkierRepository;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Set;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+class SubscriptionServicesImplTest {
+
+    @InjectMocks
+    private SubscriptionServicesImpl subscriptionServices;
+
+    @Mock
+    private ISubscriptionRepository subscriptionRepository;
+
+    @Mock
+    private ISkierRepository skierRepository;
+    @Order(1)
+
+    @Test
+    void testAddSubscription() {
+        Subscription subscription = new Subscription(1L, LocalDate.now(), null, 100.0f, TypeSubscription.ANNUAL);
+
+        when(subscriptionRepository.save(any(Subscription.class))).thenReturn(subscription);
+
+        Subscription result = subscriptionServices.addSubscription(subscription);
+
+        verify(subscriptionRepository, times(1)).save(any(Subscription.class));
+
+        assertEquals(subscription.getEndDate(), result.getEndDate());
+    }
+    @Order(2)
+
+    @Test
+    void testUpdateSubscription() {
+        Subscription subscription = new Subscription(1L, LocalDate.now(), null, 100.0f, TypeSubscription.ANNUAL);
+
+        when(subscriptionRepository.save(any(Subscription.class))).thenReturn(subscription);
+
+        Subscription result = subscriptionServices.updateSubscription(subscription);
+
+        verify(subscriptionRepository, times(1)).save(any(Subscription.class));
+
+        assertEquals(subscription.getEndDate(), result.getEndDate());
+    }
+
+    @Test
+    void testRetrieveSubscriptionById() {
+        Subscription subscription = new Subscription(1L, LocalDate.now(), null, 100.0f, TypeSubscription.ANNUAL);
+
+        when(subscriptionRepository.findById(1L)).thenReturn(Optional.of(subscription));
+
+        Subscription result = subscriptionServices.retrieveSubscriptionById(1L);
+
+        verify(subscriptionRepository, times(1)).findById(1L);
+
+        assertEquals(subscription, result);
+    }
+
+    @Test
+    void testGetAllSubscriptions() {
+        Subscription subscription = new Subscription(1L, LocalDate.now(), null, 100.0f, TypeSubscription.ANNUAL);
+
+        when(subscriptionRepository.findAll()).thenReturn(Collections.singletonList(subscription));
+
+        assertEquals(Collections.singletonList(subscription), subscriptionServices.getAllSubscriptions());
+    }
+
+    @Test
+    void testGetSubscriptionByType() {
+        Subscription subscription = new Subscription(1L, LocalDate.now(), null, 100.0f, TypeSubscription.ANNUAL);
+
+        when(subscriptionRepository.findByTypeSubOrderByStartDateAsc(TypeSubscription.ANNUAL)).thenReturn(Collections.singleton(subscription));
+
+        Set<Subscription> result = subscriptionServices.getSubscriptionByType(TypeSubscription.ANNUAL);
+
+        assertEquals(Collections.singleton(subscription), result);
+    }
+
+    @Test
+    void testRetrieveSubscriptionsByDates() {
+        Subscription subscription = new Subscription(1L, LocalDate.now(), null, 100.0f, TypeSubscription.ANNUAL);
+
+        when(subscriptionRepository.getSubscriptionsByStartDateBetween(any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(Collections.singletonList(subscription));
+
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now().plusDays(30);
+
+        assertEquals(Collections.singletonList(subscription),
+                subscriptionServices.retrieveSubscriptionsByDates(startDate, endDate));
+    }
+}
