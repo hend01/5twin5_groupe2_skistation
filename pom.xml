@@ -126,6 +126,37 @@
 					</execution>
 				</executions>
 			</plugin>
+			 <plugin>
+                <groupId>com.lazerycode.jmeter</groupId>
+                <artifactId>jmeter-maven-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <!-- Generate JMeter configuration -->
+                    <execution>
+                        <id>configuration</id>
+                        <goals>
+                            <goal>configure</goal>
+                        </goals>
+                        <phase>verify</phase> <!-- Change the phase to 'verify' -->
+                    </execution>
+                    <!-- Run JMeter tests -->
+                    <execution>
+                        <id>jmeter-tests</id>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                        <phase>verify</phase> <!-- Change the phase to 'verify' -->
+                    </execution>
+                    <!-- Fail build on errors in test -->
+                    <execution>
+                        <id>jmeter-check-results</id>
+                        <goals>
+                            <goal>results</goal>
+                        </goals>
+                        <phase>verify</phase> <!-- Change the phase to 'verify' -->
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 		<finalName>Hend-station-ski</finalName>
 	</build>
