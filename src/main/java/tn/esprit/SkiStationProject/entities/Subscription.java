@@ -1,5 +1,6 @@
 package tn.esprit.SkiStationProject.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
@@ -20,11 +21,11 @@ import tn.esprit.SkiStationProject.entities.enums.TypeSubscription;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class Subscription extends BaseEntity {
+public class Subscription implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // If you're using auto-increment in your database
-	private Long num_sub;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	Long numSub;
 	LocalDate startDate;
 	LocalDate endDate;
 	Float price;
