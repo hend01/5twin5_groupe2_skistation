@@ -1,5 +1,6 @@
-package tn.esprit.SkiStationProject.entities;
+package tn.esprit.spring.entities;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -11,17 +12,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import tn.esprit.SkiStationProject.entities.enums.Support;
-import tn.esprit.SkiStationProject.entities.enums.TypeCourse;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class Course extends BaseEntity {
+public class Course implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	Long numCourse;
 	int level;
 	@Enumerated(EnumType.STRING)
 	TypeCourse typeCourse;
@@ -33,13 +34,5 @@ public class Course extends BaseEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy= "course")
 	Set<Registration> registrations;
-
-	public Course(int level, TypeCourse typeCourse, Support support, Float price, int timeSlot) {
-		this.level = level;
-		this.typeCourse = typeCourse;
-		this.support = support;
-		this.price = price;
-		this.timeSlot = timeSlot;
-	}
 
 }

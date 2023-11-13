@@ -1,18 +1,17 @@
-package tn.esprit.SkiStationProject.services;
+package tn.esprit.spring.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.SkiStationProject.entities.Course;
-import tn.esprit.SkiStationProject.repositories.CourseRepository;
+import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.TypeCourse;
+import tn.esprit.spring.repositories.ICourseRepository;
 
 import java.util.List;
-
-
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class CourseServicesImpl implements  ICourseServices{
 
-    private final CourseRepository courseRepository;
+    private ICourseRepository courseRepository;
 
     @Override
     public List<Course> retrieveAllCourses() {
@@ -32,11 +31,6 @@ public class CourseServicesImpl implements  ICourseServices{
     @Override
     public Course retrieveCourse(Long numCourse) {
         return courseRepository.findById(numCourse).orElse(null);
-    }
-
-    @Override
-    public void deleteCourse(Long courseId) {
-        courseRepository.deleteById(courseId);
     }
 
 

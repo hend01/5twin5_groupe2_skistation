@@ -1,6 +1,8 @@
-package tn.esprit.SkiStationProject.entities;
+package tn.esprit.spring.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -19,8 +21,11 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class Skier extends BaseEntity {
+public class Skier implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	Long numSkier;
 	String firstName;
 	String lastName;
 	LocalDate dateOfBirth;

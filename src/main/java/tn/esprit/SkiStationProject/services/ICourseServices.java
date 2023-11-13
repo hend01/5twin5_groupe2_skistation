@@ -1,6 +1,7 @@
-package tn.esprit.SkiStationProject.services;
+package tn.esprit.spring.services;
 
-import tn.esprit.SkiStationProject.entities.Course;
+import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.TypeCourse;
 
 import java.util.List;
 
@@ -15,5 +16,4 @@ public interface ICourseServices {
     Course retrieveCourse(Long numCourse);
 
 
-    void deleteCourse(Long courseId);
 }

@@ -1,7 +1,6 @@
-package tn.esprit.SkiStationProject.services;
+package tn.esprit.spring.services;
 
-import tn.esprit.SkiStationProject.entities.*;
-import tn.esprit.SkiStationProject.entities.enums.Support;
+import tn.esprit.spring.entities.*;
 
 import java.util.List;
 

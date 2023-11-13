@@ -1,26 +1,27 @@
-package tn.esprit.SkiStationProject.services;
+package tn.esprit.spring.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import tn.esprit.SkiStationProject.entities.Skier;
-import tn.esprit.SkiStationProject.entities.Subscription;
-import tn.esprit.SkiStationProject.entities.enums.TypeSubscription;
-import tn.esprit.SkiStationProject.repositories.SkierRepository;
-import tn.esprit.SkiStationProject.repositories.SubscriptionRepository;
+import tn.esprit.spring.entities.Skier;
+import tn.esprit.spring.entities.Subscription;
+import tn.esprit.spring.entities.TypeSubscription;
+import tn.esprit.spring.repositories.ISkierRepository;
+import tn.esprit.spring.repositories.ISubscriptionRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class SubscriptionServicesImpl implements ISubscriptionServices{
 
-    private final SubscriptionRepository subscriptionRepository;
+    private ISubscriptionRepository subscriptionRepository;
 
-    private final SkierRepository skierRepository;
+    private ISkierRepository skierRepository;
 
     @Override
     public Subscription addSubscription(Subscription subscription) {
@@ -59,17 +60,17 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     }
 
     @Override
-  //  @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
+    @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
     public void retrieveSubscriptions() {
         for (Subscription sub: subscriptionRepository.findDistinctOrderByEndDateAsc()) {
             Skier   aSkier = skierRepository.findBySubscription(sub);
-            log.info(sub.getId() + " | "+ sub.getEndDate().toString()
+            log.info(sub.getNumSub().toString() + " | "+ sub.getEndDate().toString()
                     + " | "+ aSkier.getFirstName() + " " + aSkier.getLastName());
         }
     }
 
    // @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
-   // @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
+    @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
     public void showMonthlyRecurringRevenue() {
         Float revenue = subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.MONTHLY)
                 + subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.SEMESTRIEL)/6

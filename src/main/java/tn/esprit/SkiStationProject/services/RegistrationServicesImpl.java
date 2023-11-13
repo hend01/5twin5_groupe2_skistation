@@ -1,42 +1,32 @@
-package tn.esprit.SkiStationProject.services;
+package tn.esprit.spring.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
-import tn.esprit.SkiStationProject.entities.*;
-import tn.esprit.SkiStationProject.entities.enums.Support;
-import tn.esprit.SkiStationProject.repositories.CourseRepository;
-import tn.esprit.SkiStationProject.repositories.InstructorRepository;
-import tn.esprit.SkiStationProject.repositories.RegistrationRepository;
-import tn.esprit.SkiStationProject.repositories.SkierRepository;
+import tn.esprit.spring.entities.*;
+import tn.esprit.spring.repositories.ICourseRepository;
+import tn.esprit.spring.repositories.IRegistrationRepository;
+import tn.esprit.spring.repositories.ISkierRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class RegistrationServicesImpl implements  IRegistrationServices{
 
-    private final RegistrationRepository registrationRepository;
-    private final SkierRepository skierRepository;
-    private final CourseRepository courseRepository;
-
-    private final InstructorRepository instructorRepository;
+    private IRegistrationRepository registrationRepository;
+    private ISkierRepository skierRepository;
+    private ICourseRepository courseRepository;
 
 
     @Override
     public Registration addRegistrationAndAssignToSkier(Registration registration, Long numSkier) {
         Skier skier = skierRepository.findById(numSkier).orElse(null);
         registration.setSkier(skier);
-         registrationRepository.save(registration);
-         return registration;
+        return registrationRepository.save(registration);
     }
 
     @Override
@@ -50,15 +40,14 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
     @Transactional
     @Override
     public Registration addRegistrationAndAssignToSkierAndCourse(Registration registration, Long numSkieur, Long numCours) {
-
         Skier skier = skierRepository.findById(numSkieur).orElse(null);
         Course course = courseRepository.findById(numCours).orElse(null);
 
-        Assert.notNull(skier,"No Skieur found with this id : "+numSkieur);
-        Assert.notNull(course,"No Skieur found with this id : "+numSkieur);
+        if (skier == null || course == null) {
+            return null;
+        }
 
-
-        if(registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(registration.getNumWeek(), skier.getId(), course.getId()) >=1){
+        if(registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(registration.getNumWeek(), skier.getNumSkier(), course.getNumCourse()) >=1){
             log.info("Sorry, you're already register to this course of the week :" + registration.getNumWeek());
             return null;
         }
@@ -111,19 +100,6 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
 
     @Override
     public List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support support) {
-
-        Map<Course, List<Integer>> map = instructorRepository.findById(numInstructor)
-                .orElseThrow(() -> new IllegalArgumentException("No Instructor Found with this id " + numInstructor))
-                .getCourses().stream()
-                .filter(course -> course.getSupport().equals(support))
-                .map(Course::getRegistrations)
-                .flatMap(Collection::stream)
-               // .map(Registration::getNumWeek)
-                .collect(Collectors.groupingBy(
-                        Registration::getCourse,
-                        Collectors.mapping(Registration::getNumWeek, Collectors.toList())
-                ));
-
         return registrationRepository.numWeeksCourseOfInstructorBySupport(numInstructor, support);
     }
 

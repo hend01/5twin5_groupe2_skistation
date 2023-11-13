@@ -1,16 +1,16 @@
-package tn.esprit.SkiStationProject.services;
+package tn.esprit.spring.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.SkiStationProject.entities.Piste;
-import tn.esprit.SkiStationProject.repositories.PisteRepository;
+import tn.esprit.spring.entities.Piste;
+import tn.esprit.spring.repositories.IPisteRepository;
 
 import java.util.List;
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class PisteServicesImpl implements  IPisteServices{
 
-    private final PisteRepository pisteRepository;
+    private IPisteRepository pisteRepository;
 
     @Override
     public List<Piste> retrieveAllPistes() {

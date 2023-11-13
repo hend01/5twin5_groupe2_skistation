@@ -1,22 +1,22 @@
-package tn.esprit.SkiStationProject.services;
+package tn.esprit.spring.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.SkiStationProject.entities.Course;
-import tn.esprit.SkiStationProject.entities.Instructor;
-import tn.esprit.SkiStationProject.repositories.CourseRepository;
-import tn.esprit.SkiStationProject.repositories.InstructorRepository;
+import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.Instructor;
+import tn.esprit.spring.repositories.ICourseRepository;
+import tn.esprit.spring.repositories.IInstructorRepository;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class InstructorServicesImpl implements IInstructorServices{
 
-    private final InstructorRepository instructorRepository;
-    private final CourseRepository courseRepository;
+    private IInstructorRepository instructorRepository;
+    private ICourseRepository courseRepository;
 
     @Override
     public Instructor addInstructor(Instructor instructor) {

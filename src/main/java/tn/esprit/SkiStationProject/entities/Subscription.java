@@ -1,4 +1,4 @@
-package tn.esprit.SkiStationProject.entities;
+package tn.esprit.spring.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import tn.esprit.SkiStationProject.entities.enums.TypeSubscription;
-
 @Getter
 @Setter
 @ToString
@@ -25,11 +23,11 @@ public class Subscription implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long num_sub;
+	Long numSub;
 	LocalDate startDate;
 	LocalDate endDate;
 	Float price;
-    @Enumerated(EnumType.STRING)
+//	@Enumerated(EnumType.STRING)
 	TypeSubscription typeSub;
 
 }

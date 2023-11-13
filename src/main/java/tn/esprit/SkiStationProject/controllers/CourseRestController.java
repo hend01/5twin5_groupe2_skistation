@@ -1,15 +1,16 @@
-package tn.esprit.SkiStationProject.controllers;
+package tn.esprit.spring.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.SkiStationProject.entities.Course;
-import tn.esprit.SkiStationProject.services.ICourseServices;
+import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.TypeCourse;
+import tn.esprit.spring.services.ICourseServices;
 
 import java.util.List;
 
-@Tag(name = "Course Management")
+@Tag(name = "\uD83D\uDCDA Course Management")
 @RestController
 @RequestMapping("/course")
 @RequiredArgsConstructor

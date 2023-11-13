@@ -1,28 +1,27 @@
-package tn.esprit.SkiStationProject.services;
+package tn.esprit.spring.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.SkiStationProject.entities.*;
-import tn.esprit.SkiStationProject.entities.enums.TypeSubscription;
-import tn.esprit.SkiStationProject.repositories.*;
+import tn.esprit.spring.entities.*;
+import tn.esprit.spring.repositories.*;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class SkierServicesImpl implements ISkierServices {
 
-    private final SkierRepository skierRepository;
+    private ISkierRepository skierRepository;
 
-    private final PisteRepository pisteRepository;
+    private IPisteRepository pisteRepository;
 
-    private final CourseRepository courseRepository;
+    private ICourseRepository courseRepository;
 
-    private final RegistrationRepository registrationRepository;
+    private IRegistrationRepository registrationRepository;
 
-    private final SubscriptionRepository subscriptionRepository;
+    private ISubscriptionRepository subscriptionRepository;
 
 
     @Override
@@ -57,7 +56,7 @@ public class SkierServicesImpl implements ISkierServices {
     @Override
     public Skier addSkierAndAssignToCourse(Skier skier, Long numCourse) {
         Skier savedSkier = skierRepository.save(skier);
-        Course course = courseRepository.findById(numCourse).orElseThrow(() -> new IllegalArgumentException("No Course Found with this id " + numCourse));
+        Course course = courseRepository.getById(numCourse);
         Set<Registration> registrations = savedSkier.getRegistrations();
         for (Registration r : registrations) {
             r.setSkier(savedSkier);

@@ -1,6 +1,6 @@
-package tn.esprit.SkiStationProject.services;
+package tn.esprit.spring.services;
 
-import tn.esprit.SkiStationProject.entities.Piste;
+import tn.esprit.spring.entities.Piste;
 
 import java.util.List;
 

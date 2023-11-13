@@ -1,11 +1,11 @@
-package tn.esprit.SkiStationProject.controllers;
+package tn.esprit.spring.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.SkiStationProject.entities.Instructor;
-import tn.esprit.SkiStationProject.services.IInstructorServices;
+import tn.esprit.spring.entities.Instructor;
+import tn.esprit.spring.services.IInstructorServices;
 
 import java.util.List;
 
