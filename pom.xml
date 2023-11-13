@@ -14,7 +14,7 @@
 			<url>http://172.10.0.140:8081/repository/maven-releases/</url>
 		</repository>
 		<repository>
-			<id>nexus-repo</id>
+        		<id>nexus-snapshots</id>
 			<name>Nexus Snapshot Repository</name>
 			<url>http://172.10.0.140:8081/repository/maven-snapshots/</url>
 		</repository>
