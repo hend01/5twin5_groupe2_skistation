@@ -25,7 +25,7 @@ pipeline {
                 sh "mvn --version"
             }
         }
-    /*
+    
         stage('Run JUnit and Mockito Tests') {
             steps {
                 sh 'mvn test'
@@ -37,7 +37,7 @@ pipeline {
                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
             }
         }
-    */
+
         stage("Build Docker image") {
             steps {
                 script {
