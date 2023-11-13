@@ -41,6 +41,7 @@ pipeline {
                     echo 'sonar test';
                     withCredentials([usernamePassword(credentialsId: 'f42d7219-5bba-4e05-82ef-ee2115b07063', passwordVariable: 'SONAR_PASSWORD', usernameVariable: 'SONAR_LOGIN')]) {
                         sh "mvn sonar:sonar -Dsonar.login=${SONAR_LOGIN} -Dsonar.password=${SONAR_PASSWORD}"
+                        sh"mvn jacoco:report"
                     }
                 }
             }
