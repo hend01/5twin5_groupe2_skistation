@@ -1,4 +1,4 @@
 FROM openjdk:11-jre-slim
 EXPOSE 8089
-COPY target/DevOps_Project-2.1.jar DevOps_Project-2.1.jar
-ENTRYPOINT ["java", "-jar", "/DevOps_Project-2.1.jar"]
+COPY target/gestion-station-ski-1.0.jar  gestion-station-ski-1.0.jar
+ENTRYPOINT ["java", "-jar", "/gestion-station-ski-1.0.jar"]
