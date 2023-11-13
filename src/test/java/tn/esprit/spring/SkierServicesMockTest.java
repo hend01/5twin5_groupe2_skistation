@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-public class SkierServicesMockTest {
+ class SkierServicesMockTest {
     @InjectMocks
     private SkierServicesImpl skierService;
 
@@ -51,7 +51,7 @@ public class SkierServicesMockTest {
 
 
     @Test
-    public void testAddSkier() {
+     void testAddSkier() {
         Skier skier = new Skier();
         Subscription subscription = new Subscription();
         subscription.setTypeSub(TypeSubscription.ANNUAL);
