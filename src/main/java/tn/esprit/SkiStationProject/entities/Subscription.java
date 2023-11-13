@@ -25,7 +25,7 @@ public class Subscription implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long numSub;
+	Long num_sub;
 	LocalDate startDate;
 	LocalDate endDate;
 	Float price;
