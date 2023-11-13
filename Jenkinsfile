@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-/*
+
         stage('JUNIT / Mockito') {
             steps {
                 // Run JUnit and Mockito tests using Maven
@@ -45,7 +45,7 @@ pipeline {
                 }
             }
         }
-        */
+
 
         stage('MVN NEXUS') {
                     steps {
@@ -68,7 +68,7 @@ pipeline {
                 }
             }
         }
-    /*
+
         stage('PUSH TO DOCKERHUB') {
             steps {
                 script{
@@ -80,7 +80,7 @@ pipeline {
                     }
             }
         }
-*/
+
         stage("DOCKER COMPOSE") {
             steps {
                 sh "docker-compose up -d"
