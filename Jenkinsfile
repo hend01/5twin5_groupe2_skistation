@@ -90,15 +90,15 @@ pipeline {
     post {
             success {
                 emailext(
-                    subject: "PROJECT : ${PROJECT_NAME}  , Build Successful: Build #${currentBuild.number}",
+                    subject: "Build Successful: Build #${currentBuild.number}",
                     body: "The build was successful. Build number: ${currentBuild.number}",
                     to: 'mohamedskander.zouaoui@esprit.tn'
                 )
             }
             failure {
                 emailext(
-                    subject: "PROJECT : ${PROJECT_NAME} , Build Failed: Build #${currentBuild.number}",
-                    body: "The build has failed. Build number: ${currentBuild.number}, FAILED TESTS: ${FAILED_TESTS} ",
+                    subject: "Build Failed: Build #${currentBuild.number}",
+                    body: "The build has failed. Build number: ${currentBuild.number}",
                     to: 'mohamedskander.zouaoui@esprit.tn'
                 )
             }
