@@ -1,4 +1,4 @@
-package tn.esprit.spring.services;
+package tn.esprit.spring;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
@@ -11,19 +11,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import tn.esprit.spring.GestionStationSkiApplication;
 import tn.esprit.spring.entities.Color;
 import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.repositories.IPisteRepository;
 import tn.esprit.spring.repositories.ISkierRepository;
+import tn.esprit.spring.services.IPisteServices;
+import tn.esprit.spring.services.PisteServicesImpl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
