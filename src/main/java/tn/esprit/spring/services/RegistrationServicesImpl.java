@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entities.*;
 import tn.esprit.spring.repositories.ICourseRepository;
-import tn.esprit.spring.repositories.IInstructorRepository;
 import tn.esprit.spring.repositories.IRegistrationRepository;
 import tn.esprit.spring.repositories.ISkierRepository;
 
@@ -21,7 +20,6 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
     private IRegistrationRepository registrationRepository;
     private ISkierRepository skierRepository;
     private ICourseRepository courseRepository;
-    private IInstructorRepository instructorRepository;
 
 
     @Override
