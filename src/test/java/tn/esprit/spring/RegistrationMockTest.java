@@ -1,45 +1,43 @@
-package tn.esprit.SkiStationProject;
+package tn.esprit.spring;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import tn.esprit.SkiStationProject.entities.Course;
-import tn.esprit.SkiStationProject.entities.Registration;
-import tn.esprit.SkiStationProject.entities.Skier;
-import tn.esprit.SkiStationProject.repositories.CourseRepository;
-import tn.esprit.SkiStationProject.repositories.InstructorRepository;
-import tn.esprit.SkiStationProject.repositories.RegistrationRepository;
-import tn.esprit.SkiStationProject.repositories.SkierRepository;
-import tn.esprit.SkiStationProject.services.RegistrationServicesImpl;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.Registration;
+import tn.esprit.spring.entities.Skier;
+import tn.esprit.spring.entities.Support;
+import tn.esprit.spring.repositories.ICourseRepository;
+import tn.esprit.spring.repositories.IInstructorRepository;
+import tn.esprit.spring.repositories.IRegistrationRepository;
+import tn.esprit.spring.repositories.ISkierRepository;
+import tn.esprit.spring.services.RegistrationServicesImpl;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
-@SpringBootTest
-class RegistrationServicesImplTest {
+class RegistrationServicesMockitoTest {
 
+    @InjectMocks
     private RegistrationServicesImpl registrationServices;
 
-    private SkierRepository skierRepository;
-    private CourseRepository courseRepository;
-    private InstructorRepository instructorRepository;
-    private RegistrationRepository registrationRepository;
-
+    @Mock
+    private ISkierRepository skierRepository;
+    @Mock
+    private ICourseRepository courseRepository;
+    @Mock
+    private IInstructorRepository instructorRepository;
+    @Mock
+    private IRegistrationRepository registrationRepository;
 
     @BeforeEach
     void setUp() {
-        skierRepository = mock(SkierRepository.class);
-        courseRepository = mock(CourseRepository.class);
-        instructorRepository = mock(InstructorRepository.class);
-        registrationRepository = mock(RegistrationRepository.class);
-
-        registrationServices = new RegistrationServicesImpl(
-                registrationRepository, skierRepository, courseRepository, instructorRepository
-        );
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
@@ -79,5 +77,9 @@ class RegistrationServicesImplTest {
 
 
 
-}
 
+
+
+
+
+}
