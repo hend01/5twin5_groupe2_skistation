@@ -25,7 +25,7 @@ pipeline {
                 sh "mvn --version"
             }
         }
-    
+
         stage('Run JUnit and Mockito Tests') {
             steps {
                 sh 'mvn test'
