@@ -67,7 +67,7 @@ import static org.mockito.Mockito.when;
     }
 
     @Test
-    public void testRetrieveAllSkiers() {
+     void testRetrieveAllSkiers() {
         List<Skier> skiers = new ArrayList<>();
         when(skierRepository.findAll()).thenReturn(skiers);
 
