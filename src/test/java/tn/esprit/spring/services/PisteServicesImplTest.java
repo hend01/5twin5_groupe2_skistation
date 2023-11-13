@@ -46,7 +46,14 @@ class PisteServicesImplTest {
 
         }
     };
+    @Test
+    void addPiste() {
+        when(pisteRepository.save(piste7)).thenReturn(piste7);
+        Piste result = pisteServices.addPiste(piste7);
+        assertNotNull(result);
 
+
+    }
 
     @Test
 
@@ -109,6 +116,8 @@ class PisteServicesImplTestJunit {
         assertFalse(pistes.isEmpty(), "La liste des pistes ne doit pas être vide");
 
     }
+
+
     @Test
     void testRemovePiste() {
         Long idPisteASupprimer = 2L; // Assurez-vous que cette piste existe
