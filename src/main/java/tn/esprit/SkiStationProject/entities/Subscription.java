@@ -22,6 +22,9 @@ import tn.esprit.SkiStationProject.entities.enums.TypeSubscription;
 @Entity
 public class Subscription extends BaseEntity {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // If you're using auto-increment in your database
+	private Long num_sub;
 	LocalDate startDate;
 	LocalDate endDate;
 	Float price;
