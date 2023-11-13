@@ -1,19 +1,18 @@
 package tn.esprit.spring;
-
-/*
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import tn.esprit.spring.entities.Course;
-import tn.esprit.spring.entities.Registration;
-import tn.esprit.spring.entities.Skier;
-import tn.esprit.spring.repositories.ICourseRepository;
-import tn.esprit.spring.repositories.IInstructorRepository;
-import tn.esprit.spring.repositories.IRegistrationRepository;
-import tn.esprit.spring.repositories.ISkierRepository;
+import tn.esprit.SkiStationProject.entities.Course;
+import tn.esprit.SkiStationProject.entities.Registration;
+import tn.esprit.SkiStationProject.entities.Skier;
+import tn.esprit.SkiStationProject.repositories.CourseRepository;
+import tn.esprit.SkiStationProject.repositories.InstructorRepository;
+import tn.esprit.SkiStationProject.repositories.RegistrationRepository;
+import tn.esprit.SkiStationProject.repositories.SkierRepository;
+import tn.esprit.SkiStationProject.services.RegistrationServicesImpl;
 
-import tn.esprit.spring.services.RegistrationServicesImpl;
-
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,18 +24,17 @@ class RegistrationServicesImplTest {
 
     private RegistrationServicesImpl registrationServices;
 
-    private ISkierRepository skierRepository;
-    private ICourseRepository courseRepository;
-    private IInstructorRepository instructorRepository;
-    private IRegistrationRepository registrationRepository;
-
+    private SkierRepository skierRepository;
+    private CourseRepository courseRepository;
+    private InstructorRepository instructorRepository;
+    private RegistrationRepository registrationRepository;
 
     @BeforeEach
     void setUp() {
-        skierRepository = mock(ISkierRepository.class);
-        courseRepository = mock(ICourseRepository.class);
-        instructorRepository = mock(IInstructorRepository.class);
-        registrationRepository = mock(IRegistrationRepository.class);
+        skierRepository = mock(SkierRepository.class);
+        courseRepository = mock(CourseRepository.class);
+        instructorRepository = mock(InstructorRepository.class);
+        registrationRepository = mock(RegistrationRepository.class);
 
         registrationServices = new RegistrationServicesImpl(
                 registrationRepository, skierRepository, courseRepository, instructorRepository
@@ -78,9 +76,5 @@ class RegistrationServicesImplTest {
         assertEquals(result, registration);
     }
 
-
-
+    // Add more test cases for other methods as needed
 }
-*/
-
-

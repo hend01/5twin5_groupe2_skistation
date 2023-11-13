@@ -1,20 +1,20 @@
 package tn.esprit.spring;
-/*
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import tn.esprit.spring.entities.Course;
-import tn.esprit.spring.entities.Registration;
-import tn.esprit.spring.entities.Skier;
-import tn.esprit.spring.entities.Support;
-import tn.esprit.spring.repositories.ICourseRepository;
-import tn.esprit.spring.repositories.IInstructorRepository;
-import tn.esprit.spring.repositories.IRegistrationRepository;
-import tn.esprit.spring.repositories.ISkierRepository;
-import tn.esprit.spring.services.RegistrationServicesImpl;
+import tn.esprit.SkiStationProject.entities.Course;
+import tn.esprit.SkiStationProject.entities.Registration;
+import tn.esprit.SkiStationProject.entities.Skier;
+import tn.esprit.SkiStationProject.repositories.CourseRepository;
+import tn.esprit.SkiStationProject.repositories.InstructorRepository;
+import tn.esprit.SkiStationProject.repositories.RegistrationRepository;
+import tn.esprit.SkiStationProject.repositories.SkierRepository;
+import tn.esprit.SkiStationProject.services.RegistrationServicesImpl;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,13 +27,13 @@ class RegistrationServicesMockitoTest {
     private RegistrationServicesImpl registrationServices;
 
     @Mock
-    private ISkierRepository skierRepository;
+    private SkierRepository skierRepository;
     @Mock
-    private ICourseRepository courseRepository;
+    private CourseRepository courseRepository;
     @Mock
-    private IInstructorRepository instructorRepository;
+    private InstructorRepository instructorRepository;
     @Mock
-    private IRegistrationRepository registrationRepository;
+    private RegistrationRepository registrationRepository;
 
     @BeforeEach
     void setUp() {
@@ -75,5 +75,5 @@ class RegistrationServicesMockitoTest {
         assertEquals(result, registration);
     }
 
+    // Add more test cases for other methods as needed
 }
-*/
