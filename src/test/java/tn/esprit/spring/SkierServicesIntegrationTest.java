@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @Transactional
-public class SkierServicesIntegrationTest {
+class SkierServicesIntegrationTest {
     @Autowired
     private SkierServicesImpl skierService;
 
