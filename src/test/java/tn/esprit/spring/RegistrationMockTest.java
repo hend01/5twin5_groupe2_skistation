@@ -8,7 +8,6 @@ import org.mockito.MockitoAnnotations;
 import tn.esprit.spring.entities.Course;
 import tn.esprit.spring.entities.Registration;
 import tn.esprit.spring.entities.Skier;
-import tn.esprit.spring.entities.Support;
 import tn.esprit.spring.repositories.ICourseRepository;
 import tn.esprit.spring.repositories.IInstructorRepository;
 import tn.esprit.spring.repositories.IRegistrationRepository;
