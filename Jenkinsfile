@@ -80,7 +80,7 @@ pipeline {
                             }
                     }
             }
-        }
+
 
         stage("DOCKER COMPOSE") {
             steps {

@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/instructor")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200") // Allow requests from the Angular application
 public class InstructorRestController {
 
     private final IInstructorServices instructorServices;

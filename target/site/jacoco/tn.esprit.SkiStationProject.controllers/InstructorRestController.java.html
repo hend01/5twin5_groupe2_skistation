@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping(&quot;/instructor&quot;)
 <span class="fc" id="L17">@RequiredArgsConstructor</span>
+@CrossOrigin(origins = &quot;http://localhost:4200&quot;) // Allow requests from the Angular application
 public class InstructorRestController {
 
     private final IInstructorServices instructorServices;
@@ -22,40 +23,40 @@ public class InstructorRestController {
     @Operation(description = &quot;Add Instructor&quot;)
     @PostMapping(&quot;/add&quot;)
     public Instructor addInstructor(@RequestBody Instructor instructor){
-<span class="nc" id="L25">        return  instructorServices.addInstructor(instructor);</span>
+<span class="nc" id="L26">        return  instructorServices.addInstructor(instructor);</span>
     }
     @Operation(description = &quot;Add Instructor and Assign To Course&quot;)
     @PutMapping(&quot;/addAndAssignToCourse/{numCourse}&quot;)
     public Instructor addAndAssignToInstructor(@RequestBody Instructor instructor, @PathVariable(&quot;numCourse&quot;)Long numCourse){
-<span class="nc" id="L30">        return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);</span>
+<span class="nc" id="L31">        return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);</span>
     }
     @Operation(description = &quot;Retrieve all Instructors&quot;)
     @GetMapping(&quot;/all&quot;)
     public List&lt;Instructor&gt; getAllInstructors(){
-<span class="nc" id="L35">        return instructorServices.retrieveAllInstructors();</span>
+<span class="nc" id="L36">        return instructorServices.retrieveAllInstructors();</span>
     }
 
     @Operation(description = &quot;Update Instructor &quot;)
     @PutMapping(&quot;/update&quot;)
     public Instructor updateInstructor(@RequestBody Instructor Instructor){
-<span class="nc" id="L41">        return  instructorServices.updateInstructor(Instructor);</span>
+<span class="nc" id="L42">        return  instructorServices.updateInstructor(Instructor);</span>
     }
 
     @Operation(description = &quot;Retrieve Instructor by Id&quot;)
     @GetMapping(&quot;/get/{id-instructor}&quot;)
     public Instructor getById(@PathVariable(&quot;id-instructor&quot;) Long numInstructor){
-<span class="nc" id="L47">        return instructorServices.retrieveInstructor(numInstructor);</span>
+<span class="nc" id="L48">        return instructorServices.retrieveInstructor(numInstructor);</span>
     }
 
     @Operation(description = &quot;Delete Instructor by Id&quot;)
     @DeleteMapping(&quot;/{id-instructor}&quot;)
     public ResponseEntity&lt;String&gt; deteteById(@PathVariable(&quot;id-instructor&quot;) Long numInstructor){
-<span class="nc" id="L53">        boolean success = instructorServices.deleteInstructor(numInstructor);</span>
+<span class="nc" id="L54">        boolean success = instructorServices.deleteInstructor(numInstructor);</span>
 
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        if (success) {</span>
-<span class="nc" id="L56">            return ResponseEntity.ok(&quot;Instructor deleted successfully&quot;);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (success) {</span>
+<span class="nc" id="L57">            return ResponseEntity.ok(&quot;Instructor deleted successfully&quot;);</span>
         } else {
-<span class="nc" id="L58">            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(&quot;Instructor not found&quot;);</span>
+<span class="nc" id="L59">            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(&quot;Instructor not found&quot;);</span>
         }
     }
 
