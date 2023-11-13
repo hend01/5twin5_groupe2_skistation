@@ -3,10 +3,6 @@ pipeline {
 
     environment {
         dockerimagename = "ski"
-        dockerImage = ""
-        nexusRepositoryURL = "192.168.33.10:8081/repository/doghman/"
-        nexusRepositoryName = "doghman"
-        dockerImageVersion = "1.0"
     }
 
     stages {
@@ -21,7 +17,7 @@ pipeline {
         stage("Build") {
             steps {
                 sh "chmod +x ./mvnw"
-                sh "mvn clean package -Pprod -X"
+                sh "mvn clean package -X"
                 sh "mvn --version"
             }
         }
@@ -53,7 +49,7 @@ pipeline {
 
         stage("Deploy Artifact to Nexus") {
             steps {
-                sh "mvn deploy -Pprod"
+                sh "mvn deploy "
             }
         }
 
