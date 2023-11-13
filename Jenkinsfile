@@ -98,9 +98,7 @@ pipeline {
             failure {
                 emailext(
                     subject: "Build Failed: Build #${currentBuild.number}",
-                    body: '''<p><font size="8" color="red">Build Failure!</font></p>
-                        <p>Check console output at &QUOT;<a href='${BUILD_URL}consoleText'>${env.JOB_NAME} [${BUILD_NUMBER}]</a>&QUOT;</p>
-                        ${BUILD_LOG_REGEX, regex="^.*?*****.*?$", linesBefore=0, linesAfter=999, maxMatches=10, showTruncatedLines=false,escapeHtml=false}''',
+                    body: "The build has failed. Build number: ${currentBuild.number}",
                     to: 'mohamedskander.zouaoui@esprit.tn'
                 )
             }
