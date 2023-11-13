@@ -41,7 +41,7 @@ class SkierServicesIntegrationTest {
     }
 
     @Test
-    public void testAddSkier() {
+     void testAddSkier() {
         Skier skier = new Skier();
         Subscription subscription = new Subscription();
         subscription.setTypeSub(TypeSubscription.ANNUAL);
