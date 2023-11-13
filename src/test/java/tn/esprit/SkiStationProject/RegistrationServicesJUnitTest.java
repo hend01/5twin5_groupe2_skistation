@@ -1,4 +1,4 @@
-package tn.esprit.spring;
+package tn.esprit.SkiStationProject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
-@SpringBootTest(classes = Registration.class)
+@SpringBootTest
 class RegistrationServicesImplTest {
 
     private RegistrationServicesImpl registrationServices;
@@ -78,3 +78,4 @@ class RegistrationServicesImplTest {
 
     // Add more test cases for other methods as needed
 }
+

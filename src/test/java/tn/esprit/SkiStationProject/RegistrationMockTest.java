@@ -1,4 +1,4 @@
-package tn.esprit.spring;
+package tn.esprit.SkiStationProject;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
