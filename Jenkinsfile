@@ -88,26 +88,19 @@ pipeline {
         }
     }
     post {
-        success {
-            script {
-                def buildLog = currentBuild.rawBuild.getLog(1000) // Adjust the number of lines you want to include
+            success {
                 emailext(
                     subject: "Build Successful: Build #${currentBuild.number}",
-                    body: "The build was successful. Build number: ${currentBuild.number}\n\nConsole Output:\n${buildLog}",
+                    body: "The build was successful. Build number: ${currentBuild.number}",
                     to: 'mohamedskander.zouaoui@esprit.tn'
                 )
             }
-        }
-        failure {
-            script {
-                def buildLog = currentBuild.rawBuild.getLog(1000) // Adjust the number of lines you want to include
+            failure {
                 emailext(
                     subject: "Build Failed: Build #${currentBuild.number}",
-                    body: "The build has failed. Build number: ${currentBuild.number}\n\nConsole Output:\n${buildLog}",
+                    body: "The build has failed. Build number: ${currentBuild.number}",
                     to: 'mohamedskander.zouaoui@esprit.tn'
                 )
             }
         }
-    }
-
 }
