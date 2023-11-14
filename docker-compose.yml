@@ -1,22 +1,26 @@
-version: "3"
+version: "3.8"
 services:
-  db-mysql:
-    image: "mysql:latest"
+  mysqldb:
     container_name: db-mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
+    image: mysql:latest
     ports:
       - "3306:3306"
-    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    volumes:
+      - db:/var/lib/mysql
 
-  springmaven:
-    image: "krichen/noureddinekrichen_5twin5_groupe2_gestionstation_ski"
+  gestion-station-ski:
+    container_name: gestion-station-ski
+    image: krichen/gestion-station_ski:1.0
+    depends_on:
+      - mysqldb
+    build: ./
+    restart: on-failure
     ports:
       - "8089:8089"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/skistation?createDatabaseIfNotExist=true&userSSL=false&max_allowed_packet=15728640
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-    restart: unless-stopped
-    depends_on:
-      - db-mysql
+    stdin_open: true
+    tty: true
+volumes:
+  db:
+
