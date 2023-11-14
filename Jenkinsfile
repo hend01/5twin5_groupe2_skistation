@@ -22,8 +22,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "mvn --version" // Use the specified Maven installation
-                    sh "mvn clean package -DskipTests" // Build your Maven project
+                    sh "mvn --version"
+                    sh "mvn clean package -DskipTests"
                 }
             }
         }
@@ -49,16 +49,16 @@ pipeline {
 
 
         stage('MVN NEXUS') {
-                    steps {
-                        sh "mvn deploy -DskipTests=true "
-                    }
+            steps {
+                sh "mvn deploy -DskipTests=true"
+            }
         }
 
         stage('PROMETHEUS ET GRAFANA') {
-                    steps {
-                        sh "docker restart ${PROMETHEUS_CONTAINER}"
-                        sh "docker restart ${GRAFANA_CONTAINER}"
-                    }
+            steps {
+                sh "docker restart ${PROMETHEUS_CONTAINER}"
+                sh "docker restart ${GRAFANA_CONTAINER}"
+            }
         }
 
 
