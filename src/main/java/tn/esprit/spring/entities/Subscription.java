@@ -20,7 +20,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
 public class Subscription implements Serializable {
-
+ 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long numSub;
