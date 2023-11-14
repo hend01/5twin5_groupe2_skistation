@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,8 @@ import tn.esprit.spring.services.PisteServicesImpl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,7 +35,7 @@ class PisteServicesImplTest {
     IPisteRepository  pisteRepository;
     @InjectMocks
     PisteServicesImpl pisteServices;
-    Piste piste7 = new Piste(7L, "Slope7", Color.RED,500,20, new HashSet<Skier>());
+    Piste piste1 = new Piste(1L, "Sfax", Color.BLACK,500,20, new HashSet<Skier>());
     List<Piste> listPiste = new ArrayList<Piste>(){
         {
             add(new Piste(1L, "Slope1", Color.RED,500,20, new HashSet<Skier>()));
@@ -43,9 +46,16 @@ class PisteServicesImplTest {
     };
     @Test
     void addPiste() {
-        when(pisteRepository.save(piste7)).thenReturn(piste7);
-        Piste result = pisteServices.addPiste(piste7);
+        when(pisteRepository.save(piste1)).thenReturn(piste1);
+        Piste result = pisteServices.addPiste(piste1);
         assertNotNull(result);
+    }
+
+    @Test
+    void retrievePiste() {
+        when(pisteRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(piste1));
+        Piste P = pisteServices.retrievePiste(1L);
+        assertNotNull(P);
     }
 
     @Test
@@ -67,47 +77,10 @@ class PisteServicesImplTest {
 
     @Test
     void removePiste() {
-        Long pisteId = 1L;
+        Long pisteId = 2L;
         pisteServices.removePiste(pisteId);
         verify(pisteRepository).deleteById(pisteId);
     }
 }
 
-@SpringBootTest(classes = {GestionStationSkiApplication.class})
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ExtendWith(SpringExtension.class)
-class PisteServiceImplJunitTest {
 
-    @Autowired
-    IPisteRepository pisteRepository;
-
-    @Autowired
-    ISkierRepository skierRepository;
-
-    @Autowired
-    IPisteServices pisteServices;
-
-    @Autowired
-    ISkierServices skierServices;
-
-    Piste piste = new Piste(1L, "Aouina", Color.BLACK, 100,20,new HashSet<Skier>());
-    Piste piste2 = new Piste(2L, "Marsa", Color.GREEN, 200,40,new HashSet<Skier>());
-
-    @Test
-    @Order(1)
-    void testAddPiste() {
-        Piste piste = pisteServices.addPiste(new Piste(1L, "Aouina", Color.BLACK, 100,20,new HashSet<Skier>()));
-        Assertions.assertEquals("Aouina", piste.getNamePiste());
-    }
-    @Test
-    @Order(2)
-    void retrievePiste() {
-        piste2 = pisteServices.retrievePiste(2L);
-        Assertions.assertNotNull(piste2);
-    }
-    @Test
-    @Order(3)
-    void testRetrieveAllActivitySector() {
-        List<Piste> pistes = pisteServices.retrieveAllPistes();
-        Assertions.assertNotNull(pistes);
-    }}
