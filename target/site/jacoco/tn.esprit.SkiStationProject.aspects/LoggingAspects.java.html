@@ -14,20 +14,20 @@ import org.springframework.stereotype.Component;
     @Before(&quot;execution( * tn.esprit.SkiStationProject.services.*.*(..))&quot;)
     public void inMethod(JoinPoint joinPoint)
     {
-<span class="fc" id="L17">        String name = joinPoint.getSignature().getName();</span>
+<span class="nc" id="L17">        String name = joinPoint.getSignature().getName();</span>
 
-<span class="fc" id="L19">        log.info(&quot;In method :&quot; + name );</span>
+<span class="nc" id="L19">        log.info(&quot;In method :&quot; + name );</span>
 
-<span class="fc" id="L21">    }</span>
+<span class="nc" id="L21">    }</span>
 
     @AfterReturning(&quot;execution( * tn.esprit.SkiStationProject.services.*.*(..))&quot;)
     public void outMethod(JoinPoint joinPoint)
     {
-<span class="fc" id="L26">        String name = joinPoint.getSignature().getName();</span>
+<span class="nc" id="L26">        String name = joinPoint.getSignature().getName();</span>
 
-<span class="fc" id="L28">        log.info(&quot;Out of method :&quot; + name );</span>
+<span class="nc" id="L28">        log.info(&quot;Out of method :&quot; + name );</span>
 
-<span class="fc" id="L30">    }</span>
+<span class="nc" id="L30">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

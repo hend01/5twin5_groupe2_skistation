@@ -14,13 +14,13 @@ import org.springframework.util.StopWatch;
 
     @Around(&quot;execution(public * tn.esprit.SkiStationProject.services.*.add*(..))&quot;)
     public Object executionTime(ProceedingJoinPoint pjp ) throws Throwable {
-<span class="fc" id="L17">        StopWatch stopWatch  = new StopWatch();</span>
-<span class="fc" id="L18">        stopWatch.start();</span>
-<span class="fc" id="L19">        Object o = pjp.proceed();</span>
-<span class="fc" id="L20">        stopWatch.stop();</span>
-<span class="fc" id="L21">        String methodName = pjp.getSignature().getName();</span>
-<span class="fc" id="L22">        log.info(&quot;The runtime of the method ( {} ) =  {}  milliseconds.&quot;,methodName,stopWatch.getTotalTimeMillis());</span>
-<span class="fc" id="L23">        return o;</span>
+<span class="nc" id="L17">        StopWatch stopWatch  = new StopWatch();</span>
+<span class="nc" id="L18">        stopWatch.start();</span>
+<span class="nc" id="L19">        Object o = pjp.proceed();</span>
+<span class="nc" id="L20">        stopWatch.stop();</span>
+<span class="nc" id="L21">        String methodName = pjp.getSignature().getName();</span>
+<span class="nc" id="L22">        log.info(&quot;The runtime of the method ( {} ) =  {}  milliseconds.&quot;,methodName,stopWatch.getTotalTimeMillis());</span>
+<span class="nc" id="L23">        return o;</span>
 
     }
 
