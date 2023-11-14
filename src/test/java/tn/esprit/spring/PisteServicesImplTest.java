@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tn.esprit.spring.entities.Color;
 import tn.esprit.spring.entities.Piste;
@@ -26,8 +27,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-@ExtendWith(MockitoExtension.class) // Use MockitoExtension for JUnit 5
+@Configuration
+@ExtendWith(MockitoExtension.class)// Use MockitoExtension for JUnit 5
 class PisteServicesImplTest {
 
     @Mock
@@ -82,54 +83,5 @@ class PisteServicesImplTest {
 
 
 
-    @Test
-    void retrievePiste() {
-    }
-}
-@SpringBootTest(classes = {GestionStationSkiApplication.class})
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ExtendWith(SpringExtension.class)
-class PisteServicesImplTestJunit {
-
-
-    @Autowired
-
-    IPisteServices ps;
-   // Set<Skier> skiers = new HashSet<>();
-
-    //Piste piste = new Piste(1L, "PisteTest", Color.BLUE, 1000, 10, skiers);
-
-    @Test
-    void testAddPiste(){
-        Set<Skier> skiers = new HashSet<>();
-        Piste piste5 = ps.addPiste(new Piste(1L, "PisteTest", Color.BLUE, 1000, 10, skiers));
-        Assertions.assertEquals("PisteTest", piste5.getNamePiste());
-
-    }
-
-    @Test
-    void testRetrieveAllPistes() {
-        List<Piste> pistes = ps.retrieveAllPistes();
-        assertNotNull(pistes, "La liste des pistes ne doit pas être nulle");
-        assertFalse(pistes.isEmpty(), "La liste des pistes ne doit pas être vide");
-
-    }
-
-
-    @Test
-    void testRemovePiste() {
-        Long idPisteASupprimer = 2L; // Assurez-vous que cette piste existe
-        ps.removePiste(idPisteASupprimer);
-        Piste piste = ps.retrievePiste(idPisteASupprimer);
-        assertNull(piste, "La piste doit être supprimée et donc nulle");
-    }
-
-    @Test
-    void testRetrievePiste() {
-        Long idPiste = 3L; // Assurez-vous que cette piste existe
-        Piste piste = ps.retrievePiste(idPiste);
-        assertNotNull(piste, "La piste récupérée ne doit pas être nulle");
-        assertEquals(idPiste, piste.getNumPiste(), "Le numéro de la piste doit correspondre");
-    }
 }

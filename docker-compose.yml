@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
 
   springmaven:
-    image: "krichen/noureddinekrichen_5twin5_groupe2_gestionstation_ski:1.0.0"
+    image: "krichen/noureddinekrichen_5twin5_groupe2_gestionstation_ski"
     ports:
       - "8089:8089"
     environment:
