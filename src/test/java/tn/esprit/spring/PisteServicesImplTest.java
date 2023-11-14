@@ -1,14 +1,22 @@
 package tn.esprit.spring;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tn.esprit.spring.entities.Color;
 import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.repositories.IPisteRepository;
 import tn.esprit.spring.repositories.ISkierRepository;
+import tn.esprit.spring.services.IPisteServices;
+import tn.esprit.spring.services.ISkierServices;
 import tn.esprit.spring.services.PisteServicesImpl;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -63,9 +71,43 @@ class PisteServicesImplTest {
         pisteServices.removePiste(pisteId);
         verify(pisteRepository).deleteById(pisteId);
     }
-
-
-
-
-
 }
+
+@SpringBootTest(classes = {GestionStationSkiApplication.class})
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(SpringExtension.class)
+class PisteServiceImplJunitTest {
+
+    @Autowired
+    IPisteRepository pisteRepository;
+
+    @Autowired
+    ISkierRepository skierRepository;
+
+    @Autowired
+    IPisteServices pisteServices;
+
+    @Autowired
+    ISkierServices skierServices;
+
+    Piste piste = new Piste(1L, "Aouina", Color.BLACK, 100,20,new HashSet<Skier>());
+    Piste piste2 = new Piste(2L, "Marsa", Color.GREEN, 200,40,new HashSet<Skier>());
+
+    @Test
+    @Order(1)
+    void testAddPiste() {
+        Piste piste = pisteServices.addPiste(new Piste(1L, "Aouina", Color.BLACK, 100,20,new HashSet<Skier>()));
+        Assertions.assertEquals("Aouina", piste.getNamePiste());
+    }
+    @Test
+    @Order(2)
+    void retrievePiste() {
+        piste2 = pisteServices.retrievePiste(2L);
+        Assertions.assertNotNull(piste2);
+    }
+    @Test
+    @Order(3)
+    void testRetrieveAllActivitySector() {
+        List<Piste> pistes = pisteServices.retrieveAllPistes();
+        Assertions.assertNotNull(pistes);
+    }}
