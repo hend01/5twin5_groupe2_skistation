@@ -9,8 +9,9 @@ services:
           - "3307:3306"
         restart: unless-stopped
     springmaven:
-        image: "ghannemhazem/devopsproject:68"
-        build: .\dockerfile
+        build:
+          context: .
+          dockerfile: Dockerfile
         ports:
           - "8090:8089"
         environment:
